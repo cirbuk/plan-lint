@@ -8,7 +8,7 @@ It parses the machine-readable plan emitted by a planner/brain, validates it aga
 schemas, policy rules, and heuristics, and returns Pass / Fail with an
 annotated risk-score JSON.
 
-[![CI](https://github.com/your-organization/plan-linter/actions/workflows/ci.yml/badge.svg)](https://github.com/your-organization/plan-linter/actions/workflows/ci.yml)
+[![CI](https://github.com/cirbuk/plan-linter/actions/workflows/ci.yml/badge.svg)](https://github.com/cirbuk/plan-linter/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![PyPI version](https://badge.fury.io/py/plan-lint.svg)](https://badge.fury.io/py/plan-lint)
 [![Python Versions](https://img.shields.io/pypi/pyversions/plan-lint.svg)](https://pypi.org/project/plan-lint/)
