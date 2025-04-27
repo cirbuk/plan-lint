@@ -70,3 +70,12 @@ jobs:
     - name: Test example plans with linter
       run: |
         python -m plan_lint src/plan_lint/examples/price_drop.json --policy src/plan_lint/examples/policy.yaml
+      continue-on-error: true
+    
+    - name: Verify linter behavior
+      run: |
+        # Run the linter and capture the exit code
+        python -m plan_lint src/plan_lint/examples/price_drop.json --policy src/plan_lint/examples/policy.yaml --format json > linter_output.json || echo "Linter found issues as expected"
+        
+        # Check that the output contains the expected errors
+        cat linter_output.json | grep -q "TOOL_DENY" && cat linter_output.json | grep -q "RAW_SECRET" && echo "✅ Linter correctly identified policy violations"
