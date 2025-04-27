@@ -7,7 +7,7 @@ This module provides the main CLI entry point for the tool.
 import importlib
 import os
 import sys
-from typing import Dict, Optional
+from typing import Dict, Optional, Any, Callable
 
 import typer
 from rich.console import Console
@@ -28,14 +28,14 @@ app = typer.Typer(
 console = Console()
 
 
-def load_rules() -> Dict:
+def load_rules() -> Dict[str, Callable]:
     """
     Load all rule modules from the rules directory.
 
     Returns:
         Dictionary mapping rule names to check_plan functions.
     """
-    rules = {}
+    rules: Dict[str, Callable] = {}
     rules_dir = os.path.join(os.path.dirname(__file__), "rules")
 
     if not os.path.exists(rules_dir):

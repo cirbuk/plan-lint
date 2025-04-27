@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, staging]
+    branches: [ main, staging ]
   pull_request:
-    branches: [main, staging]
+    branches: [ main, staging ]
 
 jobs:
   test:
@@ -19,16 +19,16 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pip'
     
-    - name: Install uv
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+    
     - name: Install dependencies
       run: |
         uv pip install --system -e ".[dev]"
+        uv pip install --system types-jsonschema types-PyYAML --break-system-packages
     
     - name: Lint with ruff
       run: |
@@ -56,13 +56,12 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-        cache: 'pip'
     
     - name: Setup uv
       uses: astral-sh/setup-uv@v5
       with:
         enable-cache: true
-      
+    
     - name: Install dependencies
       run: |
         uv pip install --system -e .

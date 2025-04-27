@@ -64,9 +64,9 @@ class Plan(BaseModel):
     """A complete plan to be validated."""
 
     goal: str
-    context: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    context: Optional[Dict[str, Any]] = Field(default_factory=lambda: {})
     steps: List[PlanStep]
-    meta: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    meta: Optional[Dict[str, Any]] = Field(default_factory=lambda: {})
 
 
 class PolicyRule(BaseModel):
@@ -80,10 +80,10 @@ class Policy(BaseModel):
     """A complete policy for plan validation."""
 
     allow_tools: List[str] = Field(default_factory=list)
-    bounds: Dict[str, List[Union[int, float]]] = Field(default_factory=dict)
+    bounds: Dict[str, List[Union[int, float]]] = Field(default_factory=lambda: {})
     deny_tokens_regex: List[str] = Field(default_factory=list)
     max_steps: int = 100
-    risk_weights: Dict[str, float] = Field(default_factory=dict)
+    risk_weights: Dict[str, float] = Field(default_factory=lambda: {})
     fail_risk_threshold: float = 0.8
 
 
