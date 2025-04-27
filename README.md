@@ -13,18 +13,6 @@ annotated risk-score JSON.
 [![PyPI version](https://badge.fury.io/py/plan-lint.svg)](https://badge.fury.io/py/plan-lint)
 [![Python Versions](https://img.shields.io/pypi/pyversions/plan-lint.svg)](https://pypi.org/project/plan-lint/)
 
-## ✨ Features
-
-| Capability | Description |
-| --- | --- |
-| **Schema validation** | JSON Schema/Pydantic v2 types for every step & arg |
-| **Policy engine** | YAML/OPA rules: allow/deny tools, value bounds, scopes |
-| **Data-flow analysis** | Detect raw secrets, PII, un-escaped SQL moving to dangerous sinks |
-| **Loop detection** | Cycle check on step graph; flag unbounded recursions |
-| **Risk scoring** | Heuristic risk score (0-1); fail threshold configurable |
-| **Plugin rules** | Drop-in Python files → auto-discovered via `entry_points` |
-| **CLI & JSON output** | Exit code for CI; detailed JSON for orchestrators |
-
 ## 📦 Installation
 
 ### Using pip
@@ -187,7 +175,3 @@ pre-commit install
 ## 📄 License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgements
-
-Thanks to all [contributors](https://github.com/cirbuk/plan-lint/graphs/contributors) who have helped shape Plan-Linter!
