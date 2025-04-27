@@ -13,8 +13,8 @@ pip install plan-lint
 ### From source
 
 ```bash
-git clone https://github.com/your-organization/plan-linter.git
-cd plan-linter
+git clone https://github.com/cirbuk/plan-lint.git
+cd plan-lint
 pip install -e .
 ```
 
@@ -103,6 +103,6 @@ The command will return a non-zero exit code if the plan fails validation, which
 
 ## Next Steps
 
-- Learn about the [Plan Format](plan-format.md)
-- Understand the [Policy Format](policy-format.md)
-- Create [Custom Rules](custom-rules.md) 
+- See the [README](../README.md) for more examples 
+- Read the [Implementation Details](../IMPLEMENTATION.md)
+- Check out the [Contributing Guide](../CONTRIBUTING.md) 

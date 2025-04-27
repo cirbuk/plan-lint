@@ -43,9 +43,9 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your-organization/plan-linter"
-"Bug Tracker" = "https://github.com/your-organization/plan-linter/issues"
-"Documentation" = "https://github.com/your-organization/plan-linter/blob/main/README.md"
+"Homepage" = "https://github.com/cirbuk/plan-lint"
+"Bug Tracker" = "https://github.com/cirbuk/plan-lint/issues"
+"Documentation" = "https://github.com/cirbuk/plan-lint/blob/main/README.md"
 
 [project.scripts]
 plan-lint = "plan_lint.cli:app"

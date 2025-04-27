@@ -5,11 +5,9 @@ Welcome to the Plan-Linter documentation! This tool helps you validate LLM agent
 ## Table of Contents
 
 - [Getting Started](getting-started.md)
-- [Plan Format](plan-format.md)
-- [Policy Format](policy-format.md)
-- [Custom Rules](custom-rules.md)
-- [API Reference](api-reference.md)
+- [README](../README.md)
 - [Contributing](../CONTRIBUTING.md)
+- [Implementation Details](../IMPLEMENTATION.md)
 
 ## Overview
 
@@ -25,6 +23,6 @@ Plan-Linter is a static analysis toolkit that checks LLM agent plans before they
 
 ## Quick Links
 
-- [GitHub Repository](https://github.com/your-organization/plan-linter)
-- [Issue Tracker](https://github.com/your-organization/plan-linter/issues)
+- [GitHub Repository](https://github.com/cirbuk/plan-lint)
+- [Issue Tracker](https://github.com/cirbuk/plan-lint/issues)
 - [Changelog](../CHANGELOG.md) 
