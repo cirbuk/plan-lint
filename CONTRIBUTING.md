@@ -39,8 +39,8 @@ Feature suggestions are welcome. Please provide:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/your-username/plan-linter.git
-   cd plan-linter
+   git clone https://github.com/cirbuk/plan-lint.git
+   cd plan-lint
    ```
 
 2. Create a virtual environment and install dependencies

@@ -34,8 +34,8 @@ pip install plan-lint
 
 ### From source
 ```bash
-git clone https://github.com/your-organization/plan-linter.git
-cd plan-linter
+git clone https://github.com/cirbuk/plan-lint.git
+cd plan-lint
 pip install -e .
 ```
 
@@ -157,7 +157,7 @@ def check_plan(plan: Plan, policy: Policy) -> List[PlanError]:
 
 We welcome contributions from the community! To get started:
 
-1. Check the [open issues](https://github.com/your-organization/plan-linter/issues) or create a new one to discuss your ideas
+1. Check the [open issues](https://github.com/cirbuk/plan-lint/issues) or create a new one to discuss your ideas
 2. Fork the repository
 3. Make your changes following our [contribution guidelines](CONTRIBUTING.md)
 4. Submit a pull request
@@ -170,8 +170,8 @@ To set up a development environment:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-organization/plan-linter.git
-cd plan-linter
+git clone https://github.com/cirbuk/plan-lint.git
+cd plan-lint
 
 # Create a virtual environment
 python -m venv .venv
@@ -190,4 +190,4 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🙏 Acknowledgements
 
-Thanks to all [contributors](https://github.com/your-organization/plan-linter/graphs/contributors) who have helped shape Plan-Linter!
+Thanks to all [contributors](https://github.com/cirbuk/plan-lint/graphs/contributors) who have helped shape Plan-Linter!
