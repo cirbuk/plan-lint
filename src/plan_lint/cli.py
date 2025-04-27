@@ -7,7 +7,7 @@ This module provides the main CLI entry point for the tool.
 import importlib
 import os
 import sys
-from typing import Dict, Optional, Any, Callable
+from typing import Callable, Dict, Optional
 
 import typer
 from rich.console import Console
