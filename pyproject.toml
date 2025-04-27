@@ -1,0 +1,80 @@
+[build-system]
+requires = ["hatchling", "setuptools>=65.5.1"]
+build-backend = "hatchling.build"
+
+[project]
+name = "plan-lint"
+version = "0.0.1"
+description = "plan-linter is a static analysis toolkit for LLM agent plans"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "Plan-Linter Contributors"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+keywords = ["llm", "ai", "static-analysis", "linter", "security"]
+dependencies = [
+    "pydantic>=2.0.0",
+    "jsonschema>=4.0.0",
+    "pyyaml>=6.0.0",
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0",
+    "pre-commit>=3.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/your-organization/plan-linter"
+"Bug Tracker" = "https://github.com/your-organization/plan-linter/issues"
+"Documentation" = "https://github.com/your-organization/plan-linter/blob/main/README.md"
+
+[project.scripts]
+plan-lint = "plan_lint.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/plan_lint"]
+exclude = ["src/plan_lint/tests", "tests", "*/tests/*", "src/plan_lint/testing", "*/testing/*"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["tests", "src/plan_lint/tests", "*/tests/*", "src/plan_lint/testing", "*/testing/*"]
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+select = ["E", "F", "B", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"

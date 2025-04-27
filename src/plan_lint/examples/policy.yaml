@@ -1,0 +1,17 @@
+# Example policy rules for plan-linter
+allow_tools:
+  - sql.query_ro
+  - priceAPI.calculate
+  - priceAPI.bulkUpdate
+bounds:
+  priceAPI.bulkUpdate.discount_pct: [-40, 0]
+deny_tokens_regex:
+  - "AWS_SECRET"
+  - "API_KEY"
+  - "PASSWORD"
+max_steps: 50
+risk_weights:
+  tool_write: 0.4
+  raw_secret: 0.5
+  loop: 0.3
+fail_risk_threshold: 0.8 

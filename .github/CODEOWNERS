@@ -1,0 +1,31 @@
+# This file defines the code owners for the Plan-Linter project
+# Code owners are automatically requested for review when a pull request 
+# changes files they own
+
+# Default owners for everything
+* @your-organization/plan-linter-maintainers
+
+# Core modules
+/src/plan_lint/core.py @your-organization/plan-linter-core
+/src/plan_lint/types.py @your-organization/plan-linter-core
+/src/plan_lint/loader.py @your-organization/plan-linter-core
+
+# Rules
+/src/plan_lint/rules/ @your-organization/plan-linter-rules
+
+# Reporters
+/src/plan_lint/reporters/ @your-organization/plan-linter-ui
+
+# CLI
+/src/plan_lint/cli.py @your-organization/plan-linter-ui
+
+# Tests
+/tests/ @your-organization/plan-linter-qa
+
+# Documentation
+*.md @your-organization/plan-linter-docs
+/docs/ @your-organization/plan-linter-docs
+
+# Build & CI
+/pyproject.toml @your-organization/plan-linter-devops
+/.github/workflows/ @your-organization/plan-linter-devops 

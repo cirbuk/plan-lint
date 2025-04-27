@@ -1,0 +1,39 @@
+{
+  "goal": "Update product prices with a 30% discount for summer sale",
+  "context": {
+    "user_id": "admin-012",
+    "department": "sales",
+    "products": ["SKU123", "SKU456", "SKU789"]
+  },
+  "steps": [
+    {
+      "id": "step-001",
+      "tool": "sql.query",
+      "args": {
+        "query": "SELECT product_id, current_price FROM products WHERE sku IN ('SKU123', 'SKU456', 'SKU789')",
+        "can_write": true
+      },
+      "on_fail": "abort"
+    },
+    {
+      "id": "step-002",
+      "tool": "priceAPI.calculate",
+      "args": {
+        "discount_pct": -30
+      }
+    },
+    {
+      "id": "step-003",
+      "tool": "priceAPI.bulkUpdate",
+      "args": {
+        "product_ids": ["${step-001.result.product_id}"],
+        "new_prices": ["${step-002.result.calculated_prices}"],
+        "auth_token": "AWS_SECRET_KEY_123456789"
+      }
+    }
+  ],
+  "meta": {
+    "planner": "gpt-4o",
+    "created_at": "2025-05-15T14:30:00Z"
+  }
+} 

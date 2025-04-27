@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Agent Plan",
+  "description": "Schema for a machine-readable LLM agent plan",
+  "type": "object",
+  "required": ["goal", "steps"],
+  "properties": {
+    "goal": {
+      "type": "string",
+      "description": "The goal of the plan"
+    },
+    "context": {
+      "type": "object",
+      "description": "Contextual information for the plan execution",
+      "additionalProperties": true
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered sequence of execution steps",
+      "items": {
+        "type": "object",
+        "required": ["id", "tool", "args"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the step"
+          },
+          "tool": {
+            "type": "string",
+            "description": "Name of the tool to execute"
+          },
+          "args": {
+            "type": "object",
+            "description": "Arguments to pass to the tool",
+            "additionalProperties": true
+          },
+          "on_fail": {
+            "type": "string",
+            "description": "Action to take if step fails",
+            "enum": ["abort", "continue"],
+            "default": "abort"
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the plan",
+      "properties": {
+        "planner": {
+          "type": "string",
+          "description": "Identifier for the planning model"
+        },
+        "created_at": {
+          "type": "string",
+          "description": "ISO 8601 timestamp for plan creation",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+} 
