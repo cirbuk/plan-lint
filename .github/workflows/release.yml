@@ -4,6 +4,10 @@ on:
   release:
     types: [created]
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
