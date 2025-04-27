@@ -2,8 +2,6 @@
 Tests for the core module.
 """
 
-import pytest
-
 from plan_lint import core
 from plan_lint.types import ErrorCode, Plan, PlanStep, Policy, Status
 

@@ -12,7 +12,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from plan_lint.types import PlanError, PlanWarning, Status, ValidationResult
+from plan_lint.types import Status, ValidationResult
 
 
 def report(result: ValidationResult, output: TextIO = sys.stdout) -> None:

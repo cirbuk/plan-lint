@@ -5,7 +5,7 @@ This module provides functionality for rendering validation results as JSON.
 """
 
 import json
-from typing import Dict, TextIO, Union
+from typing import Dict, TextIO
 
 from plan_lint.types import ValidationResult
 

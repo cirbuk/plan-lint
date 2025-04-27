@@ -3,10 +3,8 @@ Pytest configuration for plan-linter tests.
 """
 
 import json
-import os
 import sys
 from pathlib import Path
-from typing import Dict
 
 import pytest
 

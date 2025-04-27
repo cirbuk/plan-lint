@@ -5,7 +5,7 @@ This module provides the main functionality for validating plans against policie
 """
 
 import re
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional
 
 from plan_lint.types import (
     ErrorCode,
@@ -96,10 +96,13 @@ def check_bounds(
                     PlanError(
                         step=step_idx,
                         code=ErrorCode.BOUND_VIOLATION,
-                        msg=f"Argument '{arg_name}' value {arg_value} is outside bounds [{min_val}, {max_val}]",
+                        msg=(
+                            f"Argument '{arg_name}' value {arg_value} is outside "
+                            f"bounds [{min_val}, {max_val}]"
+                        ),
                     )
                 )
-        except (ValueError, IndexError, TypeError) as e:
+        except (ValueError, IndexError, TypeError):
             # Log but continue if there's an issue with parsing the bounds
             continue
 
@@ -132,7 +135,10 @@ def check_raw_secrets(
                     PlanError(
                         step=step_idx,
                         code=ErrorCode.RAW_SECRET,
-                        msg=f"Potentially sensitive data matching pattern '{pattern}' found in arguments",
+                        msg=(
+                            f"Potentially sensitive data matching pattern '{pattern}' "
+                            f"found in arguments"
+                        ),
                     )
                 )
         except re.error:
@@ -222,7 +228,10 @@ def validate_plan(plan: Plan, policy: Policy) -> ValidationResult:
         errors.append(
             PlanError(
                 code=ErrorCode.MAX_STEPS_EXCEEDED,
-                msg=f"Plan has {len(plan.steps)} steps, exceeding max of {policy.max_steps}",
+                msg=(
+                    f"Plan has {len(plan.steps)} steps, "
+                    f"exceeding max of {policy.max_steps}"
+                ),
             )
         )
 

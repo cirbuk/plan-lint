@@ -5,11 +5,9 @@ This module provides the main CLI entry point for the tool.
 """
 
 import importlib
-import json
 import os
 import sys
-from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 import typer
 from rich.console import Console
@@ -18,7 +16,7 @@ from plan_lint import core
 from plan_lint.loader import load_plan, load_policy
 from plan_lint.reporters import cli as cli_reporter
 from plan_lint.reporters import json as json_reporter
-from plan_lint.types import PlanError, Status, ValidationResult
+from plan_lint.types import Status, ValidationResult
 
 # Initialize the CLI app
 app = typer.Typer(

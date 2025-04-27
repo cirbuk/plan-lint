@@ -6,8 +6,7 @@ This module provides functionality for loading plans, schemas, and policies.
 
 import json
 import os
-from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Dict, Optional
 
 import jsonschema
 import yaml
@@ -51,7 +50,7 @@ def load_plan(plan_path: str) -> Plan:
     try:
         jsonschema.validate(instance=plan_data, schema=schema)
     except jsonschema.exceptions.ValidationError as e:
-        raise ValueError(f"Plan validation failed: {e}")
+        raise ValueError(f"Plan validation failed: {e}") from e
 
     return Plan.model_validate(plan_data)
 
@@ -83,9 +82,11 @@ def load_policy(policy_path: Optional[str] = None) -> Policy:
                     # Try to convert to a list if possible
                     try:
                         policy_data["bounds"][key] = list(value)
-                    except (TypeError, ValueError):
-                        raise ValueError(f"Invalid bounds format for {key}: {value}")
+                    except (TypeError, ValueError) as err:
+                        raise ValueError(
+                            f"Invalid bounds format for {key}: {value}"
+                        ) from err
 
         return Policy.model_validate(policy_data)
     except Exception as e:
-        raise ValueError(f"Failed to load policy from {policy_path}: {e}")
+        raise ValueError(f"Failed to load policy from {policy_path}: {e}") from e

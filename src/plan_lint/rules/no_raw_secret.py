@@ -5,7 +5,7 @@ This rule checks if any step contains raw secrets or sensitive information.
 """
 
 import re
-from typing import List, Optional
+from typing import List
 
 from plan_lint.types import ErrorCode, Plan, PlanError, PlanStep, Policy
 
@@ -34,7 +34,10 @@ def check_step(step: PlanStep, policy: Policy, step_idx: int) -> List[PlanError]
                 PlanError(
                     step=step_idx,
                     code=ErrorCode.RAW_SECRET,
-                    msg=f"Potentially sensitive data matching pattern '{pattern}' found in arguments",
+                    msg=(
+                        f"Potentially sensitive data matching pattern '{pattern}' "
+                        f"found in arguments"
+                    ),
                 )
             )
 
@@ -60,7 +63,7 @@ def check_step(step: PlanStep, policy: Policy, step_idx: int) -> List[PlanError]
                 PlanError(
                     step=step_idx,
                     code=ErrorCode.RAW_SECRET,
-                    msg=f"Potentially sensitive data detected in arguments",
+                    msg="Potentially sensitive data detected in arguments",
                 )
             )
             # Only report once for built-in patterns
