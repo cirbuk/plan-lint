@@ -6,7 +6,7 @@ This module provides functionality for loading plans, schemas, and policies.
 
 import json
 import os
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 import jsonschema
 import yaml
@@ -14,7 +14,7 @@ import yaml
 from plan_lint.types import Plan, Policy
 
 
-def load_schema(schema_path: Optional[str] = None) -> Dict:
+def load_schema(schema_path: Optional[str] = None) -> Dict[str, Any]:
     """
     Load a JSON schema from a file or use the default schema.
 
@@ -29,7 +29,7 @@ def load_schema(schema_path: Optional[str] = None) -> Dict:
         schema_path = os.path.join(module_dir, "schemas", "plan.schema.json")
 
     with open(schema_path, "r") as f:
-        return json.load(f)
+        return json.load(f)  # type: ignore[no-any-return]
 
 
 def load_plan(plan_path: str) -> Plan:

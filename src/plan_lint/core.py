@@ -220,8 +220,8 @@ def validate_plan(plan: Plan, policy: Policy) -> ValidationResult:
     Returns:
         A ValidationResult object.
     """
-    errors = []
-    warnings = []
+    errors: List[PlanError] = []
+    warnings: List[PlanWarning] = []
 
     # Check if plan has too many steps
     if len(plan.steps) > policy.max_steps:

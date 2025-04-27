@@ -5,7 +5,7 @@ This module provides functionality for rendering validation results as JSON.
 """
 
 import json
-from typing import Dict, TextIO
+from typing import Dict, Optional, TextIO
 
 from plan_lint.types import ValidationResult
 
@@ -23,7 +23,7 @@ def to_dict(result: ValidationResult) -> Dict:
     return result.model_dump()
 
 
-def report(result: ValidationResult, output: TextIO = None) -> str:
+def report(result: ValidationResult, output: Optional[TextIO] = None) -> str:
     """
     Generate a JSON report from a validation result.
 
