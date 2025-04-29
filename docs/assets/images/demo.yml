@@ -1,0 +1,2751 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /Users/barada/Sandbox/Mason/plan-lint
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 184
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 51
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 289
+    content: "\r\nThe default interactive shell is now zsh.\r\nTo update your account to use zsh, please run `chsh -s /bin/zsh`.\r\nFor more details, please visit https://support.apple.com/kb/HT208050.\r\n\e[?1034hMacBook-Pro-23:plan-lint barada$ "
+  - delay: 6450
+    content: c
+  - delay: 70
+    content: d
+  - delay: 91
+    content: ' '
+  - delay: 312
+    content: '~'
+  - delay: 112
+    content: /
+  - delay: 305
+    content: S
+  - delay: 175
+    content: a
+  - delay: 122
+    content: 'n'
+  - delay: 158
+    content: dbox/
+  - delay: 417
+    content: M
+  - delay: 136
+    content: a
+  - delay: 247
+    content: son/
+  - delay: 7161
+    content: p
+  - delay: 154
+    content: l
+  - delay: 102
+    content: a
+  - delay: 158
+    content: 'n'
+  - delay: 147
+    content: '-lint/'
+  - delay: 558
+    content: "\r\nMacBook-Pro-23:plan-lint barada$ "
+  - delay: 2276
+    content: s
+  - delay: 81
+    content: o
+  - delay: 184
+    content: u
+  - delay: 108
+    content: r
+  - delay: 206
+    content: c
+  - delay: 216
+    content: e
+  - delay: 183
+    content: ' '
+  - delay: 238
+    content: .
+  - delay: 143
+    content: v
+  - delay: 228
+    content: e
+  - delay: 264
+    content: nv/
+  - delay: 549
+    content: b
+  - delay: 218
+    content: i
+  - delay: 78
+    content: n/
+  - delay: 345
+    content: a
+  - delay: 200
+    content: c
+  - delay: 261
+    content: t
+  - delay: 135
+    content: i
+  - delay: 126
+    content: "\avate"
+  - delay: 478
+    content: "\r\n(plan-lint) MacBook-Pro-23:plan-lint barada$ "
+  - delay: 1456
+    content: p
+  - delay: 177
+    content: l
+  - delay: 133
+    content: a
+  - delay: 133
+    content: 'n'
+  - delay: 2881
+    content: "\b\e[K"
+  - delay: 169
+    content: "\b\e[K"
+  - delay: 87
+    content: "\b\e[K"
+  - delay: 122
+    content: "\b\e[K"
+  - delay: 308
+    content: p
+  - delay: 261
+    content: 'y'
+  - delay: 105
+    content: t
+  - delay: 130
+    content: h
+  - delay: 190
+    content: o
+  - delay: 157
+    content: 'n'
+  - delay: 177
+    content: ' '
+  - delay: 352
+    content: e
+  - delay: 179
+    content: x
+  - delay: 286
+    content: amples/
+  - delay: 1124
+    content: r
+  - delay: 181
+    content: e
+  - delay: 231
+    content: 'alistic_demo.py '
+  - delay: 472
+    content: "\r\n"
+  - delay: 180
+    content: "\e[32m================================================================================\e[0m\r\n\e[32m\U0001F4CA PLAN-LINT FINANCIAL SECURITY DEMO \e[0m\r\n\e[32m================================================================================\e[0m\r\n\r\n\e[36mAvailable Scenarios:\e[0m\r\n  ✅ standard: Standard account transfer (should pass validation)\r\n  ❌ harmful: Transaction query with SQL injection (should fail validation)\r\n  ❌ excessive: Large transfer exceeding limits (should fail validation)\r\n  ❌ sensitive_data: Profile update with sensitive data (should fail validation)\r\n\r\n\e[33mRunning scenario: harmful\e[0m\r\n\r\n\r\n\e[33mUSER: \e[0mCan you show me my recent transactions? My email is alex.morgan@example.com\r\n\r\n\e[32mFinancialPlanningAgent: \e[0m\r\nI"
+  - delay: 72
+    content: ''''
+  - delay: 82
+    content: l
+  - delay: 53
+    content: l
+  - delay: 38
+    content: ' '
+  - delay: 51
+    content: c
+  - delay: 53
+    content: r
+  - delay: 49
+    content: e
+  - delay: 35
+    content: a
+  - delay: 38
+    content: t
+  - delay: 75
+    content: e
+  - delay: 49
+    content: ' '
+  - delay: 80
+    content: a
+  - delay: 37
+    content: ' '
+  - delay: 71
+    content: p
+  - delay: 56
+    content: l
+  - delay: 73
+    content: a
+  - delay: 77
+    content: 'n'
+  - delay: 57
+    content: ' '
+  - delay: 64
+    content: f
+  - delay: 42
+    content: o
+  - delay: 48
+    content: r
+  - delay: 40
+    content: ' '
+  - delay: 54
+    content: t
+  - delay: 43
+    content: h
+  - delay: 63
+    content: i
+  - delay: 51
+    content: s
+  - delay: 38
+    content: ' '
+  - delay: 43
+    content: f
+  - delay: 63
+    content: i
+  - delay: 81
+    content: 'n'
+  - delay: 57
+    content: a
+  - delay: 75
+    content: 'n'
+  - delay: 56
+    content: c
+  - delay: 35
+    content: i
+  - delay: 73
+    content: a
+  - delay: 59
+    content: l
+  - delay: 80
+    content: ' '
+  - delay: 55
+    content: o
+  - delay: 77
+    content: p
+  - delay: 38
+    content: e
+  - delay: 40
+    content: r
+  - delay: 70
+    content: a
+  - delay: 54
+    content: t
+  - delay: 42
+    content: i
+  - delay: 68
+    content: o
+  - delay: 41
+    content: 'n'
+  - delay: 66
+    content: .
+  - delay: 46
+    content: "\r\n\r\e[36m\U0001F916 Analyzing the user request...\e[0m"
+  - delay: 923
+    content: "\r\e[36m\U0001F916 Determining required operations...\e[0m"
+  - delay: 1088
+    content: "\r\e[36m\U0001F916 Planning database queries...\e[0m"
+  - delay: 1197
+    content: "\r\e[36m\U0001F916 Identifying required tools...\e[0m"
+  - delay: 1082
+    content: "\r\e[36m\U0001F916 Formulating execution steps...\e[0m"
+  - delay: 1484
+    content: "\r\e[36m\U0001F916 Generating structured plan...\e[0m"
+  - delay: 1199
+    content: "\r                                                                                \r\e[32mFinancialPlanningAgent: \e[0mHere's my plan:\r\n\e[33m\r\n{"
+  - delay: 28
+    content: "\r\n "
+  - delay: 12
+    content: ' '
+  - delay: 25
+    content: '"'
+  - delay: 14
+    content: g
+  - delay: 16
+    content: o
+  - delay: 16
+    content: a
+  - delay: 16
+    content: l
+  - delay: 18
+    content: '"'
+  - delay: 20
+    content: ':'
+  - delay: 26
+    content: ' '
+  - delay: 28
+    content: '"'
+  - delay: 33
+    content: D
+  - delay: 16
+    content: i
+  - delay: 14
+    content: s
+  - delay: 32
+    content: p
+  - delay: 13
+    content: l
+  - delay: 16
+    content: a
+  - delay: 30
+    content: 'y'
+  - delay: 18
+    content: ' '
+  - delay: 14
+    content: r
+  - delay: 22
+    content: e
+  - delay: 18
+    content: c
+  - delay: 24
+    content: e
+  - delay: 16
+    content: 'n'
+  - delay: 25
+    content: t
+  - delay: 13
+    content: ' '
+  - delay: 25
+    content: t
+  - delay: 28
+    content: r
+  - delay: 19
+    content: a
+  - delay: 31
+    content: 'n'
+  - delay: 26
+    content: s
+  - delay: 13
+    content: a
+  - delay: 19
+    content: c
+  - delay: 14
+    content: t
+  - delay: 24
+    content: i
+  - delay: 31
+    content: o
+  - delay: 31
+    content: 'n'
+  - delay: 17
+    content: ' '
+  - delay: 25
+    content: h
+  - delay: 18
+    content: i
+  - delay: 15
+    content: s
+  - delay: 28
+    content: t
+  - delay: 22
+    content: o
+  - delay: 13
+    content: r
+  - delay: 32
+    content: 'y'
+  - delay: 26
+    content: ' '
+  - delay: 29
+    content: f
+  - delay: 17
+    content: o
+  - delay: 19
+    content: r
+  - delay: 23
+    content: ' '
+  - delay: 25
+    content: u
+  - delay: 15
+    content: s
+  - delay: 32
+    content: e
+  - delay: 13
+    content: r
+  - delay: 25
+    content: ' '
+  - delay: 27
+    content: a
+  - delay: 29
+    content: l
+  - delay: 26
+    content: e
+  - delay: 25
+    content: x
+  - delay: 32
+    content: .
+  - delay: 31
+    content: m
+  - delay: 11
+    content: o
+  - delay: 21
+    content: r
+  - delay: 13
+    content: g
+  - delay: 32
+    content: a
+  - delay: 13
+    content: 'n'
+  - delay: 22
+    content: '@'
+  - delay: 11
+    content: e
+  - delay: 21
+    content: x
+  - delay: 26
+    content: a
+  - delay: 25
+    content: m
+  - delay: 22
+    content: p
+  - delay: 16
+    content: l
+  - delay: 22
+    content: e
+  - delay: 32
+    content: .
+  - delay: 27
+    content: c
+  - delay: 26
+    content: o
+  - delay: 25
+    content: m
+  - delay: 20
+    content: '"'
+  - delay: 27
+    content: ','
+  - delay: 20
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 27
+    content: '"'
+  - delay: 20
+    content: c
+  - delay: 26
+    content: o
+  - delay: 28
+    content: 'n'
+  - delay: 18
+    content: t
+  - delay: 14
+    content: e
+  - delay: 28
+    content: x
+  - delay: 14
+    content: t
+  - delay: 30
+    content: '"'
+  - delay: 20
+    content: ':'
+  - delay: 29
+    content: ' '
+  - delay: 14
+    content: '{'
+  - delay: 28
+    content: "\r\n "
+  - delay: 31
+    content: ' '
+  - delay: 28
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 33
+    content: '"'
+  - delay: 23
+    content: u
+  - delay: 17
+    content: s
+  - delay: 17
+    content: e
+  - delay: 29
+    content: r
+  - delay: 13
+    content: _
+  - delay: 33
+    content: i
+  - delay: 24
+    content: d
+  - delay: 23
+    content: '"'
+  - delay: 25
+    content: ':'
+  - delay: 18
+    content: ' '
+  - delay: 18
+    content: '"'
+  - delay: 33
+    content: u
+  - delay: 14
+    content: s
+  - delay: 14
+    content: r
+  - delay: 20
+    content: _
+  - delay: 28
+    content: '8'
+  - delay: 14
+    content: '4'
+  - delay: 15
+    content: '3'
+  - delay: 22
+    content: '7'
+  - delay: 14
+    content: '9'
+  - delay: 22
+    content: '1'
+  - delay: 15
+    content: '"'
+  - delay: 18
+    content: ','
+  - delay: 28
+    content: "\r\n "
+  - delay: 22
+    content: ' '
+  - delay: 21
+    content: ' '
+  - delay: 25
+    content: ' '
+  - delay: 34
+    content: '"'
+  - delay: 28
+    content: u
+  - delay: 31
+    content: s
+  - delay: 13
+    content: e
+  - delay: 27
+    content: r
+  - delay: 22
+    content: _
+  - delay: 18
+    content: e
+  - delay: 32
+    content: m
+  - delay: 14
+    content: a
+  - delay: 28
+    content: i
+  - delay: 21
+    content: l
+  - delay: 16
+    content: '"'
+  - delay: 31
+    content: ':'
+  - delay: 33
+    content: ' '
+  - delay: 32
+    content: '"'
+  - delay: 26
+    content: a
+  - delay: 25
+    content: l
+  - delay: 17
+    content: e
+  - delay: 16
+    content: x
+  - delay: 18
+    content: .
+  - delay: 29
+    content: m
+  - delay: 16
+    content: o
+  - delay: 27
+    content: r
+  - delay: 22
+    content: g
+  - delay: 23
+    content: a
+  - delay: 25
+    content: 'n'
+  - delay: 21
+    content: '@'
+  - delay: 34
+    content: e
+  - delay: 26
+    content: x
+  - delay: 16
+    content: a
+  - delay: 30
+    content: m
+  - delay: 19
+    content: p
+  - delay: 27
+    content: l
+  - delay: 24
+    content: e
+  - delay: 24
+    content: .
+  - delay: 28
+    content: c
+  - delay: 28
+    content: o
+  - delay: 33
+    content: m
+  - delay: 17
+    content: '"'
+  - delay: 20
+    content: ','
+  - delay: 18
+    content: "\r\n "
+  - delay: 33
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 21
+    content: ' '
+  - delay: 27
+    content: '"'
+  - delay: 15
+    content: r
+  - delay: 30
+    content: e
+  - delay: 28
+    content: q
+  - delay: 27
+    content: u
+  - delay: 17
+    content: e
+  - delay: 35
+    content: s
+  - delay: 33
+    content: t
+  - delay: 30
+    content: _
+  - delay: 19
+    content: i
+  - delay: 34
+    content: d
+  - delay: 27
+    content: '"'
+  - delay: 30
+    content: ':'
+  - delay: 31
+    content: ' '
+  - delay: 24
+    content: '"'
+  - delay: 33
+    content: r
+  - delay: 23
+    content: e
+  - delay: 32
+    content: q
+  - delay: 16
+    content: '-'
+  - delay: 16
+    content: c
+  - delay: 29
+    content: '9'
+  - delay: 18
+    content: '1'
+  - delay: 22
+    content: b
+  - delay: 26
+    content: '7'
+  - delay: 17
+    content: d
+  - delay: 14
+    content: '4'
+  - delay: 16
+    content: '5'
+  - delay: 17
+    content: '"'
+  - delay: 22
+    content: ','
+  - delay: 22
+    content: "\r\n "
+  - delay: 15
+    content: ' '
+  - delay: 26
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 16
+    content: '"'
+  - delay: 19
+    content: s
+  - delay: 19
+    content: e
+  - delay: 30
+    content: s
+  - delay: 11
+    content: s
+  - delay: 33
+    content: i
+  - delay: 17
+    content: o
+  - delay: 23
+    content: 'n'
+  - delay: 31
+    content: _
+  - delay: 18
+    content: i
+  - delay: 29
+    content: d
+  - delay: 33
+    content: '"'
+  - delay: 18
+    content: ':'
+  - delay: 24
+    content: ' '
+  - delay: 35
+    content: '"'
+  - delay: 10
+    content: s
+  - delay: 18
+    content: e
+  - delay: 29
+    content: s
+  - delay: 20
+    content: s
+  - delay: 17
+    content: _
+  - delay: 34
+    content: a
+  - delay: 34
+    content: '6'
+  - delay: 22
+    content: f
+  - delay: 13
+    content: '8'
+  - delay: 30
+    content: '3'
+  - delay: 18
+    content: c
+  - delay: 10
+    content: '2'
+  - delay: 20
+    content: '1'
+  - delay: 27
+    content: '"'
+  - delay: 33
+    content: ','
+  - delay: 33
+    content: "\r\n "
+  - delay: 26
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 31
+    content: '"'
+  - delay: 24
+    content: t
+  - delay: 20
+    content: i
+  - delay: 34
+    content: m
+  - delay: 30
+    content: e
+  - delay: 27
+    content: s
+  - delay: 21
+    content: t
+  - delay: 12
+    content: a
+  - delay: 33
+    content: m
+  - delay: 18
+    content: p
+  - delay: 30
+    content: '"'
+  - delay: 29
+    content: ':'
+  - delay: 22
+    content: ' '
+  - delay: 34
+    content: '"'
+  - delay: 15
+    content: '2'
+  - delay: 28
+    content: '0'
+  - delay: 27
+    content: '2'
+  - delay: 22
+    content: '5'
+  - delay: 26
+    content: '-'
+  - delay: 31
+    content: '0'
+  - delay: 30
+    content: '4'
+  - delay: 23
+    content: '-'
+  - delay: 32
+    content: '2'
+  - delay: 18
+    content: '8'
+  - delay: 32
+    content: T
+  - delay: 21
+    content: '1'
+  - delay: 12
+    content: '7'
+  - delay: 31
+    content: ':'
+  - delay: 21
+    content: '5'
+  - delay: 18
+    content: '6'
+  - delay: 13
+    content: ':'
+  - delay: 26
+    content: '2'
+  - delay: 20
+    content: '3'
+  - delay: 17
+    content: .
+  - delay: 20
+    content: '0'
+  - delay: 30
+    content: '6'
+  - delay: 13
+    content: '5'
+  - delay: 19
+    content: '6'
+  - delay: 34
+    content: '5'
+  - delay: 27
+    content: '9'
+  - delay: 26
+    content: '"'
+  - delay: 21
+    content: ','
+  - delay: 29
+    content: "\r\n "
+  - delay: 23
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 21
+    content: '"'
+  - delay: 29
+    content: a
+  - delay: 17
+    content: u
+  - delay: 27
+    content: t
+  - delay: 12
+    content: h
+  - delay: 23
+    content: _
+  - delay: 20
+    content: l
+  - delay: 20
+    content: e
+  - delay: 18
+    content: v
+  - delay: 25
+    content: e
+  - delay: 25
+    content: l
+  - delay: 13
+    content: '"'
+  - delay: 13
+    content: ':'
+  - delay: 24
+    content: ' '
+  - delay: 29
+    content: '"'
+  - delay: 35
+    content: v
+  - delay: 14
+    content: e
+  - delay: 29
+    content: r
+  - delay: 22
+    content: i
+  - delay: 22
+    content: f
+  - delay: 30
+    content: i
+  - delay: 14
+    content: e
+  - delay: 13
+    content: d
+  - delay: 29
+    content: '"'
+  - delay: 16
+    content: "\r\n "
+  - delay: 29
+    content: ' '
+  - delay: 12
+    content: '}'
+  - delay: 27
+    content: ','
+  - delay: 16
+    content: "\r\n "
+  - delay: 26
+    content: ' '
+  - delay: 23
+    content: '"'
+  - delay: 11
+    content: s
+  - delay: 31
+    content: t
+  - delay: 21
+    content: e
+  - delay: 23
+    content: p
+  - delay: 19
+    content: s
+  - delay: 29
+    content: '"'
+  - delay: 20
+    content: ':'
+  - delay: 30
+    content: ' '
+  - delay: 20
+    content: '['
+  - delay: 21
+    content: "\r\n "
+  - delay: 20
+    content: ' '
+  - delay: 18
+    content: ' '
+  - delay: 29
+    content: ' '
+  - delay: 19
+    content: '{'
+  - delay: 15
+    content: "\r\n "
+  - delay: 17
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 16
+    content: '"'
+  - delay: 24
+    content: i
+  - delay: 25
+    content: d
+  - delay: 27
+    content: '"'
+  - delay: 19
+    content: ':'
+  - delay: 26
+    content: ' '
+  - delay: 12
+    content: '"'
+  - delay: 16
+    content: s
+  - delay: 25
+    content: t
+  - delay: 26
+    content: e
+  - delay: 28
+    content: p
+  - delay: 30
+    content: '-'
+  - delay: 13
+    content: '0'
+  - delay: 16
+    content: '0'
+  - delay: 20
+    content: '1'
+  - delay: 17
+    content: '"'
+  - delay: 21
+    content: ','
+  - delay: 21
+    content: "\r\n "
+  - delay: 16
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 11
+    content: ' '
+  - delay: 34
+    content: ' '
+  - delay: 21
+    content: ' '
+  - delay: 19
+    content: '"'
+  - delay: 23
+    content: t
+  - delay: 13
+    content: o
+  - delay: 30
+    content: o
+  - delay: 27
+    content: l
+  - delay: 32
+    content: '"'
+  - delay: 25
+    content: ':'
+  - delay: 21
+    content: ' '
+  - delay: 15
+    content: '"'
+  - delay: 23
+    content: d
+  - delay: 17
+    content: b
+  - delay: 27
+    content: .
+  - delay: 19
+    content: q
+  - delay: 14
+    content: u
+  - delay: 28
+    content: e
+  - delay: 18
+    content: r
+  - delay: 22
+    content: 'y'
+  - delay: 13
+    content: _
+  - delay: 13
+    content: r
+  - delay: 11
+    content: o
+  - delay: 21
+    content: '"'
+  - delay: 13
+    content: ','
+  - delay: 20
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 25
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 29
+    content: ' '
+  - delay: 16
+    content: '"'
+  - delay: 14
+    content: a
+  - delay: 18
+    content: r
+  - delay: 25
+    content: g
+  - delay: 22
+    content: s
+  - delay: 21
+    content: '"'
+  - delay: 19
+    content: ':'
+  - delay: 26
+    content: ' '
+  - delay: 17
+    content: '{'
+  - delay: 35
+    content: "\r\n "
+  - delay: 32
+    content: ' '
+  - delay: 20
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 17
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 17
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 20
+    content: '"'
+  - delay: 30
+    content: q
+  - delay: 13
+    content: u
+  - delay: 16
+    content: e
+  - delay: 17
+    content: r
+  - delay: 21
+    content: 'y'
+  - delay: 28
+    content: '"'
+  - delay: 22
+    content: ':'
+  - delay: 30
+    content: ' '
+  - delay: 23
+    content: '"'
+  - delay: 24
+    content: S
+  - delay: 27
+    content: E
+  - delay: 15
+    content: L
+  - delay: 16
+    content: E
+  - delay: 25
+    content: C
+  - delay: 21
+    content: T
+  - delay: 14
+    content: ' '
+  - delay: 14
+    content: t
+  - delay: 27
+    content: r
+  - delay: 27
+    content: a
+  - delay: 13
+    content: 'n'
+  - delay: 33
+    content: s
+  - delay: 19
+    content: a
+  - delay: 35
+    content: c
+  - delay: 13
+    content: t
+  - delay: 21
+    content: i
+  - delay: 18
+    content: o
+  - delay: 25
+    content: 'n'
+  - delay: 35
+    content: _
+  - delay: 23
+    content: i
+  - delay: 19
+    content: d
+  - delay: 25
+    content: ','
+  - delay: 25
+    content: ' '
+  - delay: 27
+    content: a
+  - delay: 31
+    content: m
+  - delay: 28
+    content: o
+  - delay: 13
+    content: u
+  - delay: 26
+    content: 'n'
+  - delay: 16
+    content: t
+  - delay: 17
+    content: ','
+  - delay: 23
+    content: ' '
+  - delay: 17
+    content: d
+  - delay: 28
+    content: e
+  - delay: 17
+    content: s
+  - delay: 20
+    content: c
+  - delay: 18
+    content: r
+  - delay: 19
+    content: i
+  - delay: 26
+    content: p
+  - delay: 25
+    content: t
+  - delay: 12
+    content: i
+  - delay: 20
+    content: o
+  - delay: 19
+    content: 'n'
+  - delay: 34
+    content: ','
+  - delay: 15
+    content: ' '
+  - delay: 17
+    content: d
+  - delay: 20
+    content: a
+  - delay: 23
+    content: t
+  - delay: 25
+    content: e
+  - delay: 24
+    content: ' '
+  - delay: 27
+    content: F
+  - delay: 24
+    content: R
+  - delay: 15
+    content: O
+  - delay: 32
+    content: M
+  - delay: 15
+    content: ' '
+  - delay: 25
+    content: t
+  - delay: 35
+    content: r
+  - delay: 29
+    content: a
+  - delay: 21
+    content: 'n'
+  - delay: 18
+    content: s
+  - delay: 18
+    content: a
+  - delay: 29
+    content: c
+  - delay: 19
+    content: t
+  - delay: 33
+    content: i
+  - delay: 22
+    content: o
+  - delay: 17
+    content: 'n'
+  - delay: 28
+    content: s
+  - delay: 29
+    content: ' '
+  - delay: 19
+    content: W
+  - delay: 29
+    content: H
+  - delay: 22
+    content: E
+  - delay: 18
+    content: R
+  - delay: 33
+    content: E
+  - delay: 30
+    content: ' '
+  - delay: 13
+    content: u
+  - delay: 22
+    content: s
+  - delay: 21
+    content: e
+  - delay: 12
+    content: r
+  - delay: 13
+    content: _
+  - delay: 18
+    content: e
+  - delay: 13
+    content: m
+  - delay: 27
+    content: a
+  - delay: 28
+    content: i
+  - delay: 31
+    content: l
+  - delay: 29
+    content: ' '
+  - delay: 31
+    content: '='
+  - delay: 27
+    content: ' '
+  - delay: 30
+    content: ''''
+  - delay: 26
+    content: $
+  - delay: 30
+    content: '{'
+  - delay: 18
+    content: c
+  - delay: 34
+    content: o
+  - delay: 33
+    content: 'n'
+  - delay: 17
+    content: t
+  - delay: 18
+    content: e
+  - delay: 16
+    content: x
+  - delay: 32
+    content: t
+  - delay: 25
+    content: .
+  - delay: 28
+    content: u
+  - delay: 25
+    content: s
+  - delay: 18
+    content: e
+  - delay: 33
+    content: r
+  - delay: 28
+    content: _
+  - delay: 17
+    content: e
+  - delay: 20
+    content: m
+  - delay: 28
+    content: a
+  - delay: 28
+    content: i
+  - delay: 29
+    content: l
+  - delay: 22
+    content: '}'
+  - delay: 17
+    content: ''''
+  - delay: 15
+    content: ' '
+  - delay: 25
+    content: O
+  - delay: 18
+    content: R
+  - delay: 19
+    content: ' '
+  - delay: 27
+    content: '1'
+  - delay: 27
+    content: '='
+  - delay: 34
+    content: '1'
+  - delay: 22
+    content: ' '
+  - delay: 30
+    content: '-'
+  - delay: 32
+    content: '-'
+  - delay: 22
+    content: ' '
+  - delay: 15
+    content: 'N'
+  - delay: 14
+    content: e
+  - delay: 16
+    content: e
+  - delay: 25
+    content: d
+  - delay: 30
+    content: ' '
+  - delay: 25
+    content: t
+  - delay: 29
+    content: o
+  - delay: 17
+    content: ' '
+  - delay: 24
+    content: s
+  - delay: 23
+    content: e
+  - delay: 34
+    content: e
+  - delay: 24
+    content: ' '
+  - delay: 16
+    content: a
+  - delay: 29
+    content: l
+  - delay: 24
+    content: l
+  - delay: 30
+    content: ' '
+  - delay: 29
+    content: t
+  - delay: 31
+    content: r
+  - delay: 20
+    content: a
+  - delay: 12
+    content: 'n'
+  - delay: 23
+    content: s
+  - delay: 32
+    content: a
+  - delay: 30
+    content: c
+  - delay: 27
+    content: t
+  - delay: 24
+    content: i
+  - delay: 21
+    content: o
+  - delay: 31
+    content: 'n'
+  - delay: 25
+    content: s
+  - delay: 31
+    content: '"'
+  - delay: 21
+    content: ','
+  - delay: 21
+    content: "\r\n "
+  - delay: 29
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 19
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 28
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 18
+    content: '"'
+  - delay: 16
+    content: l
+  - delay: 16
+    content: i
+  - delay: 33
+    content: m
+  - delay: 13
+    content: i
+  - delay: 31
+    content: t
+  - delay: 31
+    content: '"'
+  - delay: 16
+    content: ':'
+  - delay: 16
+    content: ' '
+  - delay: 23
+    content: '1'
+  - delay: 34
+    content: '0'
+  - delay: 31
+    content: '0'
+  - delay: 25
+    content: '0'
+  - delay: 34
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 35
+    content: ' '
+  - delay: 25
+    content: ' '
+  - delay: 12
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 16
+    content: '}'
+  - delay: 26
+    content: ','
+  - delay: 19
+    content: "\r\n "
+  - delay: 31
+    content: ' '
+  - delay: 13
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 19
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 22
+    content: '"'
+  - delay: 23
+    content: o
+  - delay: 32
+    content: 'n'
+  - delay: 18
+    content: _
+  - delay: 19
+    content: f
+  - delay: 14
+    content: a
+  - delay: 14
+    content: i
+  - delay: 26
+    content: l
+  - delay: 30
+    content: '"'
+  - delay: 25
+    content: ':'
+  - delay: 31
+    content: ' '
+  - delay: 16
+    content: '"'
+  - delay: 30
+    content: a
+  - delay: 29
+    content: b
+  - delay: 30
+    content: o
+  - delay: 16
+    content: r
+  - delay: 20
+    content: t
+  - delay: 21
+    content: '"'
+  - delay: 26
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 18
+    content: ' '
+  - delay: 32
+    content: '}'
+  - delay: 25
+    content: ','
+  - delay: 21
+    content: "\r\n "
+  - delay: 26
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 23
+    content: '{'
+  - delay: 30
+    content: "\r\n "
+  - delay: 28
+    content: ' '
+  - delay: 26
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 15
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 13
+    content: '"'
+  - delay: 22
+    content: i
+  - delay: 21
+    content: d
+  - delay: 26
+    content: '"'
+  - delay: 20
+    content: ':'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '"'
+  - delay: 30
+    content: s
+  - delay: 27
+    content: t
+  - delay: 14
+    content: e
+  - delay: 13
+    content: p
+  - delay: 18
+    content: '-'
+  - delay: 15
+    content: '0'
+  - delay: 26
+    content: '0'
+  - delay: 24
+    content: '2'
+  - delay: 31
+    content: '"'
+  - delay: 18
+    content: ','
+  - delay: 19
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 13
+    content: ' '
+  - delay: 33
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 30
+    content: '"'
+  - delay: 28
+    content: t
+  - delay: 30
+    content: o
+  - delay: 28
+    content: o
+  - delay: 25
+    content: l
+  - delay: 31
+    content: '"'
+  - delay: 21
+    content: ':'
+  - delay: 29
+    content: ' '
+  - delay: 23
+    content: '"'
+  - delay: 16
+    content: d
+  - delay: 22
+    content: b
+  - delay: 27
+    content: .
+  - delay: 25
+    content: g
+  - delay: 26
+    content: e
+  - delay: 21
+    content: t
+  - delay: 20
+    content: _
+  - delay: 15
+    content: t
+  - delay: 16
+    content: r
+  - delay: 31
+    content: a
+  - delay: 22
+    content: 'n'
+  - delay: 17
+    content: s
+  - delay: 19
+    content: a
+  - delay: 14
+    content: c
+  - delay: 15
+    content: t
+  - delay: 25
+    content: i
+  - delay: 24
+    content: o
+  - delay: 30
+    content: 'n'
+  - delay: 19
+    content: _
+  - delay: 13
+    content: h
+  - delay: 16
+    content: i
+  - delay: 26
+    content: s
+  - delay: 26
+    content: t
+  - delay: 12
+    content: o
+  - delay: 30
+    content: r
+  - delay: 34
+    content: 'y'
+  - delay: 15
+    content: '"'
+  - delay: 30
+    content: ','
+  - delay: 15
+    content: "\r\n "
+  - delay: 22
+    content: ' '
+  - delay: 23
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 34
+    content: ' '
+  - delay: 18
+    content: ' '
+  - delay: 14
+    content: '"'
+  - delay: 14
+    content: a
+  - delay: 19
+    content: r
+  - delay: 24
+    content: g
+  - delay: 29
+    content: s
+  - delay: 13
+    content: '"'
+  - delay: 27
+    content: ':'
+  - delay: 33
+    content: ' '
+  - delay: 23
+    content: '{'
+  - delay: 16
+    content: "\r\n "
+  - delay: 19
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 12
+    content: ' '
+  - delay: 13
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 24
+    content: '"'
+  - delay: 25
+    content: u
+  - delay: 14
+    content: s
+  - delay: 21
+    content: e
+  - delay: 30
+    content: r
+  - delay: 21
+    content: _
+  - delay: 29
+    content: i
+  - delay: 27
+    content: d
+  - delay: 33
+    content: '"'
+  - delay: 29
+    content: ':'
+  - delay: 32
+    content: ' '
+  - delay: 33
+    content: '"'
+  - delay: 19
+    content: $
+  - delay: 25
+    content: '{'
+  - delay: 13
+    content: c
+  - delay: 30
+    content: o
+  - delay: 21
+    content: 'n'
+  - delay: 13
+    content: t
+  - delay: 25
+    content: e
+  - delay: 34
+    content: x
+  - delay: 25
+    content: t
+  - delay: 31
+    content: .
+  - delay: 14
+    content: u
+  - delay: 21
+    content: s
+  - delay: 18
+    content: e
+  - delay: 32
+    content: r
+  - delay: 25
+    content: _
+  - delay: 13
+    content: i
+  - delay: 12
+    content: d
+  - delay: 24
+    content: '}'
+  - delay: 18
+    content: '"'
+  - delay: 25
+    content: ','
+  - delay: 24
+    content: "\r\n "
+  - delay: 31
+    content: ' '
+  - delay: 25
+    content: ' '
+  - delay: 15
+    content: ' '
+  - delay: 28
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 17
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 31
+    content: '"'
+  - delay: 12
+    content: d
+  - delay: 13
+    content: a
+  - delay: 16
+    content: 'y'
+  - delay: 26
+    content: s
+  - delay: 14
+    content: '"'
+  - delay: 33
+    content: ':'
+  - delay: 26
+    content: ' '
+  - delay: 27
+    content: '3'
+  - delay: 18
+    content: '0'
+  - delay: 31
+    content: ','
+  - delay: 34
+    content: "\r\n "
+  - delay: 14
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 23
+    content: ' '
+  - delay: 27
+    content: ' '
+  - delay: 23
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 31
+    content: '"'
+  - delay: 22
+    content: i
+  - delay: 23
+    content: 'n'
+  - delay: 16
+    content: c
+  - delay: 13
+    content: l
+  - delay: 13
+    content: u
+  - delay: 25
+    content: d
+  - delay: 31
+    content: e
+  - delay: 34
+    content: _
+  - delay: 16
+    content: p
+  - delay: 18
+    content: e
+  - delay: 20
+    content: 'n'
+  - delay: 18
+    content: d
+  - delay: 29
+    content: i
+  - delay: 14
+    content: 'n'
+  - delay: 31
+    content: g
+  - delay: 25
+    content: '"'
+  - delay: 23
+    content: ':'
+  - delay: 16
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 18
+    content: r
+  - delay: 25
+    content: u
+  - delay: 29
+    content: e
+  - delay: 24
+    content: "\r\n "
+  - delay: 14
+    content: ' '
+  - delay: 28
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 12
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 31
+    content: '}'
+  - delay: 26
+    content: ','
+  - delay: 29
+    content: "\r\n "
+  - delay: 31
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 35
+    content: ' '
+  - delay: 18
+    content: '"'
+  - delay: 14
+    content: o
+  - delay: 22
+    content: 'n'
+  - delay: 30
+    content: _
+  - delay: 31
+    content: f
+  - delay: 15
+    content: a
+  - delay: 16
+    content: i
+  - delay: 30
+    content: l
+  - delay: 29
+    content: '"'
+  - delay: 18
+    content: ':'
+  - delay: 21
+    content: ' '
+  - delay: 22
+    content: '"'
+  - delay: 32
+    content: a
+  - delay: 29
+    content: b
+  - delay: 20
+    content: o
+  - delay: 15
+    content: r
+  - delay: 15
+    content: t
+  - delay: 23
+    content: '"'
+  - delay: 18
+    content: "\r\n "
+  - delay: 14
+    content: ' '
+  - delay: 23
+    content: ' '
+  - delay: 15
+    content: ' '
+  - delay: 28
+    content: '}'
+  - delay: 29
+    content: ','
+  - delay: 30
+    content: "\r\n "
+  - delay: 14
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 18
+    content: ' '
+  - delay: 21
+    content: '{'
+  - delay: 13
+    content: "\r\n "
+  - delay: 30
+    content: ' '
+  - delay: 18
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 26
+    content: ' '
+  - delay: 18
+    content: '"'
+  - delay: 28
+    content: i
+  - delay: 27
+    content: d
+  - delay: 27
+    content: '"'
+  - delay: 15
+    content: ':'
+  - delay: 26
+    content: ' '
+  - delay: 23
+    content: '"'
+  - delay: 24
+    content: s
+  - delay: 16
+    content: t
+  - delay: 26
+    content: e
+  - delay: 26
+    content: p
+  - delay: 23
+    content: '-'
+  - delay: 25
+    content: '0'
+  - delay: 21
+    content: '0'
+  - delay: 35
+    content: '3'
+  - delay: 32
+    content: '"'
+  - delay: 22
+    content: ','
+  - delay: 19
+    content: "\r\n "
+  - delay: 30
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 20
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 21
+    content: ' '
+  - delay: 21
+    content: '"'
+  - delay: 29
+    content: t
+  - delay: 15
+    content: o
+  - delay: 28
+    content: o
+  - delay: 27
+    content: l
+  - delay: 27
+    content: '"'
+  - delay: 22
+    content: ':'
+  - delay: 17
+    content: ' '
+  - delay: 23
+    content: '"'
+  - delay: 26
+    content: a
+  - delay: 14
+    content: 'n'
+  - delay: 28
+    content: a
+  - delay: 21
+    content: l
+  - delay: 28
+    content: 'y'
+  - delay: 20
+    content: t
+  - delay: 27
+    content: i
+  - delay: 14
+    content: c
+  - delay: 21
+    content: s
+  - delay: 32
+    content: .
+  - delay: 11
+    content: s
+  - delay: 29
+    content: u
+  - delay: 26
+    content: m
+  - delay: 25
+    content: m
+  - delay: 34
+    content: a
+  - delay: 25
+    content: r
+  - delay: 33
+    content: i
+  - delay: 30
+    content: z
+  - delay: 30
+    content: e
+  - delay: 22
+    content: '"'
+  - delay: 27
+    content: ','
+  - delay: 26
+    content: "\r\n "
+  - delay: 32
+    content: ' '
+  - delay: 20
+    content: ' '
+  - delay: 11
+    content: ' '
+  - delay: 21
+    content: ' '
+  - delay: 30
+    content: ' '
+  - delay: 20
+    content: '"'
+  - delay: 18
+    content: a
+  - delay: 27
+    content: r
+  - delay: 17
+    content: g
+  - delay: 27
+    content: s
+  - delay: 33
+    content: '"'
+  - delay: 33
+    content: ':'
+  - delay: 26
+    content: ' '
+  - delay: 28
+    content: '{'
+  - delay: 30
+    content: "\r\n "
+  - delay: 32
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 31
+    content: ' '
+  - delay: 28
+    content: ' '
+  - delay: 34
+    content: ' '
+  - delay: 11
+    content: '"'
+  - delay: 24
+    content: d
+  - delay: 16
+    content: a
+  - delay: 15
+    content: t
+  - delay: 22
+    content: a
+  - delay: 26
+    content: '"'
+  - delay: 35
+    content: ':'
+  - delay: 24
+    content: ' '
+  - delay: 19
+    content: '"'
+  - delay: 16
+    content: $
+  - delay: 22
+    content: '{'
+  - delay: 23
+    content: s
+  - delay: 12
+    content: t
+  - delay: 13
+    content: e
+  - delay: 25
+    content: p
+  - delay: 19
+    content: '-'
+  - delay: 16
+    content: '0'
+  - delay: 24
+    content: '0'
+  - delay: 27
+    content: '1'
+  - delay: 32
+    content: .
+  - delay: 25
+    content: r
+  - delay: 19
+    content: e
+  - delay: 23
+    content: s
+  - delay: 15
+    content: u
+  - delay: 29
+    content: l
+  - delay: 29
+    content: t
+  - delay: 18
+    content: '}'
+  - delay: 25
+    content: '"'
+  - delay: 18
+    content: ','
+  - delay: 13
+    content: "\r\n "
+  - delay: 34
+    content: ' '
+  - delay: 21
+    content: ' '
+  - delay: 29
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 33
+    content: ' '
+  - delay: 17
+    content: ' '
+  - delay: 34
+    content: ' '
+  - delay: 13
+    content: '"'
+  - delay: 22
+    content: g
+  - delay: 24
+    content: r
+  - delay: 18
+    content: o
+  - delay: 12
+    content: u
+  - delay: 22
+    content: p
+  - delay: 26
+    content: _
+  - delay: 24
+    content: b
+  - delay: 34
+    content: 'y'
+  - delay: 27
+    content: '"'
+  - delay: 26
+    content: ':'
+  - delay: 23
+    content: ' '
+  - delay: 32
+    content: '"'
+  - delay: 25
+    content: c
+  - delay: 27
+    content: a
+  - delay: 24
+    content: t
+  - delay: 33
+    content: e
+  - delay: 25
+    content: g
+  - delay: 29
+    content: o
+  - delay: 33
+    content: r
+  - delay: 22
+    content: 'y'
+  - delay: 24
+    content: '"'
+  - delay: 17
+    content: ','
+  - delay: 22
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 33
+    content: ' '
+  - delay: 19
+    content: ' '
+  - delay: 33
+    content: ' '
+  - delay: 25
+    content: ' '
+  - delay: 13
+    content: ' '
+  - delay: 26
+    content: '"'
+  - delay: 23
+    content: i
+  - delay: 14
+    content: 'n'
+  - delay: 22
+    content: c
+  - delay: 23
+    content: l
+  - delay: 29
+    content: u
+  - delay: 31
+    content: d
+  - delay: 28
+    content: e
+  - delay: 28
+    content: _
+  - delay: 23
+    content: p
+  - delay: 25
+    content: i
+  - delay: 25
+    content: i
+  - delay: 33
+    content: '"'
+  - delay: 35
+    content: ':'
+  - delay: 20
+    content: ' '
+  - delay: 23
+    content: t
+  - delay: 30
+    content: r
+  - delay: 19
+    content: u
+  - delay: 21
+    content: e
+  - delay: 26
+    content: ','
+  - delay: 29
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 17
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 35
+    content: ' '
+  - delay: 29
+    content: ' '
+  - delay: 24
+    content: ' '
+  - delay: 29
+    content: ' '
+  - delay: 31
+    content: '"'
+  - delay: 17
+    content: f
+  - delay: 21
+    content: o
+  - delay: 17
+    content: r
+  - delay: 29
+    content: m
+  - delay: 29
+    content: a
+  - delay: 17
+    content: t
+  - delay: 20
+    content: '"'
+  - delay: 32
+    content: ':'
+  - delay: 13
+    content: ' '
+  - delay: 34
+    content: '"'
+  - delay: 14
+    content: t
+  - delay: 31
+    content: a
+  - delay: 21
+    content: b
+  - delay: 31
+    content: l
+  - delay: 23
+    content: e
+  - delay: 28
+    content: '"'
+  - delay: 17
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 17
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 31
+    content: ' '
+  - delay: 29
+    content: ' '
+  - delay: 14
+    content: '}'
+  - delay: 14
+    content: ','
+  - delay: 15
+    content: "\r\n "
+  - delay: 18
+    content: ' '
+  - delay: 16
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 25
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 13
+    content: '"'
+  - delay: 31
+    content: o
+  - delay: 33
+    content: 'n'
+  - delay: 28
+    content: _
+  - delay: 18
+    content: f
+  - delay: 25
+    content: a
+  - delay: 18
+    content: i
+  - delay: 28
+    content: l
+  - delay: 11
+    content: '"'
+  - delay: 12
+    content: ':'
+  - delay: 13
+    content: ' '
+  - delay: 32
+    content: '"'
+  - delay: 26
+    content: a
+  - delay: 23
+    content: b
+  - delay: 26
+    content: o
+  - delay: 27
+    content: r
+  - delay: 26
+    content: t
+  - delay: 18
+    content: '"'
+  - delay: 23
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 13
+    content: ' '
+  - delay: 14
+    content: ' '
+  - delay: 16
+    content: '}'
+  - delay: 35
+    content: "\r\n "
+  - delay: 17
+    content: ' '
+  - delay: 33
+    content: ']'
+  - delay: 28
+    content: ','
+  - delay: 13
+    content: "\r\n "
+  - delay: 27
+    content: ' '
+  - delay: 16
+    content: '"'
+  - delay: 34
+    content: m
+  - delay: 24
+    content: e
+  - delay: 22
+    content: t
+  - delay: 27
+    content: a
+  - delay: 29
+    content: '"'
+  - delay: 27
+    content: ':'
+  - delay: 15
+    content: ' '
+  - delay: 29
+    content: '{'
+  - delay: 15
+    content: "\r\n "
+  - delay: 29
+    content: ' '
+  - delay: 18
+    content: ' '
+  - delay: 32
+    content: ' '
+  - delay: 12
+    content: '"'
+  - delay: 21
+    content: p
+  - delay: 17
+    content: l
+  - delay: 22
+    content: a
+  - delay: 30
+    content: 'n'
+  - delay: 15
+    content: 'n'
+  - delay: 22
+    content: e
+  - delay: 29
+    content: r
+  - delay: 30
+    content: '"'
+  - delay: 33
+    content: ':'
+  - delay: 13
+    content: ' '
+  - delay: 23
+    content: '"'
+  - delay: 26
+    content: F
+  - delay: 32
+    content: i
+  - delay: 26
+    content: 'n'
+  - delay: 20
+    content: a
+  - delay: 20
+    content: 'n'
+  - delay: 26
+    content: c
+  - delay: 32
+    content: i
+  - delay: 16
+    content: a
+  - delay: 29
+    content: l
+  - delay: 24
+    content: P
+  - delay: 34
+    content: l
+  - delay: 29
+    content: a
+  - delay: 14
+    content: 'n'
+  - delay: 21
+    content: 'n'
+  - delay: 29
+    content: i
+  - delay: 13
+    content: 'n'
+  - delay: 26
+    content: g
+  - delay: 16
+    content: A
+  - delay: 26
+    content: g
+  - delay: 17
+    content: e
+  - delay: 35
+    content: 'n'
+  - delay: 30
+    content: t
+  - delay: 18
+    content: '"'
+  - delay: 29
+    content: ','
+  - delay: 20
+    content: "\r\n "
+  - delay: 28
+    content: ' '
+  - delay: 23
+    content: ' '
+  - delay: 22
+    content: ' '
+  - delay: 28
+    content: '"'
+  - delay: 16
+    content: m
+  - delay: 32
+    content: o
+  - delay: 27
+    content: d
+  - delay: 12
+    content: e
+  - delay: 16
+    content: l
+  - delay: 21
+    content: '"'
+  - delay: 25
+    content: ':'
+  - delay: 12
+    content: ' '
+  - delay: 16
+    content: '"'
+  - delay: 23
+    content: g
+  - delay: 14
+    content: p
+  - delay: 34
+    content: t
+  - delay: 22
+    content: '-'
+  - delay: 24
+    content: '4'
+  - delay: 32
+    content: o
+  - delay: 28
+    content: '"'
+  - delay: 25
+    content: ','
+  - delay: 24
+    content: "\r\n "
+  - delay: 25
+    content: ' '
+  - delay: 25
+    content: ' '
+  - delay: 17
+    content: ' '
+  - delay: 21
+    content: '"'
+  - delay: 16
+    content: c
+  - delay: 18
+    content: r
+  - delay: 25
+    content: e
+  - delay: 16
+    content: a
+  - delay: 15
+    content: t
+  - delay: 25
+    content: e
+  - delay: 17
+    content: d
+  - delay: 23
+    content: _
+  - delay: 18
+    content: a
+  - delay: 27
+    content: t
+  - delay: 26
+    content: '"'
+  - delay: 27
+    content: ':'
+  - delay: 30
+    content: ' '
+  - delay: 26
+    content: '"'
+  - delay: 23
+    content: '2'
+  - delay: 20
+    content: '0'
+  - delay: 16
+    content: '2'
+  - delay: 20
+    content: '5'
+  - delay: 13
+    content: '-'
+  - delay: 25
+    content: '0'
+  - delay: 33
+    content: '4'
+  - delay: 24
+    content: '-'
+  - delay: 31
+    content: '2'
+  - delay: 25
+    content: '8'
+  - delay: 28
+    content: T
+  - delay: 15
+    content: '1'
+  - delay: 14
+    content: '7'
+  - delay: 17
+    content: ':'
+  - delay: 29
+    content: '5'
+  - delay: 25
+    content: '6'
+  - delay: 33
+    content: ':'
+  - delay: 18
+    content: '2'
+  - delay: 25
+    content: '3'
+  - delay: 13
+    content: .
+  - delay: 18
+    content: '0'
+  - delay: 14
+    content: '6'
+  - delay: 14
+    content: '5'
+  - delay: 14
+    content: '6'
+  - delay: 26
+    content: '6'
+  - delay: 21
+    content: '0'
+  - delay: 35
+    content: '"'
+  - delay: 30
+    content: "\r\n "
+  - delay: 29
+    content: ' '
+  - delay: 27
+    content: '}'
+  - delay: 26
+    content: "\r\n}"
+  - delay: 29
+    content: "\r\n\e[0m\r\n\r\n\e[34mFinancialExecutionAgent: \e[0mValidating plan against security policies...\r\n"
+  - delay: 9
+    content: "\e[34mFinancialExecutionAgent: \e[0m❌ Plan validation failed:\r\n- ErrorCode.RAW_SECRET (step 0): Potentially sensitive data matching pattern '--' found in arguments\r\n- ErrorCode.RAW_SECRET (step 0): Potentially sensitive data matching pattern '1=1' found in arguments\r\n- ErrorCode.RAW_SECRET (step 0): Potentially sensitive data matching pattern 'OR 1=1' found in arguments\r\n\e[34mFinancialExecutionAgent: \e[0mValidation completed in 8.81 milliseconds\r\n\e[31m❌ Plan rejected\e[0m\r\n\e[0m"
+  - delay: 22
+    content: '(plan-lint) MacBook-Pro-23:plan-lint barada$ '
+  - delay: 3072
+    content: "logout\r\n"

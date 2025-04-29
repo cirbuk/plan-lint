@@ -209,9 +209,9 @@ def calculate_risk_score(
     return min(score, 1.0)
 
 
-def validate_plan(plan: Plan, policy: Policy) -> ValidationResult:
+def validate_plan_builtin(plan: Plan, policy: Policy) -> ValidationResult:
     """
-    Validate a plan against a policy.
+    Validate a plan against a policy using built-in validation logic.
 
     Args:
         plan: The plan to validate.
@@ -271,3 +271,55 @@ def validate_plan(plan: Plan, policy: Policy) -> ValidationResult:
         errors=errors,
         warnings=warnings,
     )
+
+
+def validate_plan_opa(
+    plan: Plan, policy: Policy, rego_policy: Optional[str] = None
+) -> ValidationResult:
+    """
+    Validate a plan against a policy using OPA.
+
+    Args:
+        plan: The plan to validate.
+        policy: The policy to validate against.
+        rego_policy: Optional Rego policy string.
+
+    Returns:
+        A ValidationResult object.
+    """
+    # Import OPA validation here to avoid circular import
+    from plan_lint.opa import evaluate_with_opa, policy_to_rego
+
+    # If no Rego policy is provided, convert the YAML policy to Rego
+    if rego_policy is None:
+        rego_policy = policy_to_rego(policy)
+
+    # Evaluate with OPA
+    return evaluate_with_opa(plan, policy, rego_policy)
+
+
+def validate_plan(
+    plan: Plan, policy: Policy, rego_policy: Optional[str] = None, use_opa: bool = False
+) -> ValidationResult:
+    """
+    Validate a plan against a policy.
+
+    Args:
+        plan: The plan to validate.
+        policy: The policy to validate against.
+        rego_policy: Optional Rego policy string.
+        use_opa: Whether to use OPA for validation.
+
+    Returns:
+        A ValidationResult object.
+    """
+    # If a Rego policy is provided or use_opa is True, use OPA for validation
+    if rego_policy is not None or use_opa:
+        try:
+            return validate_plan_opa(plan, policy, rego_policy)
+        except ImportError:
+            # Fall back to built-in validation if OPA is not available
+            return validate_plan_builtin(plan, policy)
+
+    # Otherwise use built-in validation
+    return validate_plan_builtin(plan, policy)

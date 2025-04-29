@@ -1,0 +1,116 @@
+site_name: Plan-Lint SDK
+site_url: https://github.com/cirbuk/plan-lint
+site_description: Plan-lint is a static analysis toolkit for validating LLM agent plans before execution
+site_author: Plan-lint Team
+
+repo_name: cirbuk/plan-lint
+repo_url: https://github.com/cirbuk/plan-lint
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/images/logo.svg
+  favicon: assets/images/favicon.ico
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: false
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      use_pygments: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - footnotes
+  - toc:
+      permalink: true
+
+# Navigation structure
+nav:
+  - Introduction: index.md
+  - Getting Started: getting-started.md
+  - Policy Authoring Guide: policy-authoring.md
+  - Examples:
+    - Overview: examples/index.md
+    - Finance Agent System: examples/finance-agent-system.md
+    - SQL Injection Prevention: examples/sql-injection.md
+    - Custom Rules: examples/custom-rules.md
+  - Documentation:
+    - Overview: documentation/index.md
+    - Plan Structure: documentation/plan-structure.md
+    - Policy Formats: documentation/policy-formats.md
+    - Rule Types: documentation/rule-types.md
+    - Risk Scoring: documentation/risk-scoring.md
+    - MCP Integration: documentation/mcp-integration.md
+    - Custom Rule Development: documentation/custom-rule-development.md
+  - API Reference:
+    - Overview: api/index.md
+    - Core: api/core.md
+    - Types: api/types.md
+    - Loader: api/loader.md
+    - Rules: api/rules.md
+    - Validator: api/validator.md
+  - Advanced:
+    - OPA Integration: advanced/opa-integration.md
+    - Automating Validation: advanced/automating-validation.md
+    - CI/CD Integration: advanced/ci-cd-integration.md
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cirbuk/plan-lint
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/plan-lint/
+  version:
+    provider: mike
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY 

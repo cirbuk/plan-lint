@@ -1,0 +1,5 @@
+# Core dependencies
+plan-lint>=0.1.0
+
+# For simulation
+colorama>=0.4.4 

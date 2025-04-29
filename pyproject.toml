@@ -41,11 +41,21 @@ dev = [
     "ruff>=0.1.0",
     "pre-commit>=3.0.0",
 ]
+docs = [
+    "mkdocs-material>=9.0.0",
+    "mkdocstrings>=0.23.0",
+    "mkdocstrings-python>=1.2.0",
+    "mkdocs-git-revision-date-localized-plugin>=1.2.0",
+    "mike>=1.1.0",
+]
 
 [project.urls]
 "Homepage" = "https://github.com/cirbuk/plan-lint"
 "Bug Tracker" = "https://github.com/cirbuk/plan-lint/issues"
-"Documentation" = "https://github.com/cirbuk/plan-lint/blob/main/README.md"
+"Documentation" = "https://cirbuk.github.io/plan-lint/"
+"Source Code" = "https://github.com/cirbuk/plan-lint"
+"Changelog" = "https://github.com/cirbuk/plan-lint/blob/main/CHANGELOG.md"
+"Repository" = "https://github.com/cirbuk/plan-lint.git"
 
 [project.scripts]
 plan-lint = "plan_lint.cli:app"
@@ -78,7 +88,27 @@ target-version = "py311"
 # Enable linting rules
 [tool.ruff.lint]
 select = ["E", "F", "B", "I"]
+ignore = []
+
+# Per-file rules
+[tool.ruff.lint.per-file-ignores]
+# Allow module-level imports after sys.path manipulation in example files
+# Also be more lenient with line length in examples and tests (they're demos)
+"examples/*.py" = ["E402", "E501"]
+"tests/*.py" = ["E501"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
+
+[tool.mkdocs]
+site_name = "Plan-Lint Documentation"
+site_description = "Static analysis toolkit for validating LLM agent plans before execution"
+repo_url = "https://github.com/cirbuk/plan-lint"
+theme = "material"
+docs_dir = "docs"
+
+[tool.mkdocs.plugins]
+search = {}
+mkdocstrings = {}
+git-revision-date-localized = {}

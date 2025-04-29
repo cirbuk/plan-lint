@@ -13,7 +13,7 @@ import typer
 from rich.console import Console
 
 from plan_lint import core
-from plan_lint.loader import load_plan, load_policy
+from plan_lint.loader import is_rego_policy_file, load_plan, load_policy
 from plan_lint.reporters import cli as cli_reporter
 from plan_lint.reporters import json as json_reporter
 from plan_lint.types import Status, ValidationResult
@@ -60,7 +60,13 @@ def load_rules() -> Dict[str, Callable]:
 def lint_plan(
     plan_file: str = typer.Argument(..., help="Path to the plan JSON file"),
     policy_file: Optional[str] = typer.Option(
-        None, "--policy", "-p", help="Path to the policy YAML file"
+        None, "--policy", "-p", help="Path to the policy file (YAML or Rego)"
+    ),
+    policy_type: str = typer.Option(
+        "auto",
+        "--policy-type",
+        "-t",
+        help="Policy type: 'yaml', 'rego', or 'auto' (detect automatically)",
     ),
     schema_file: Optional[str] = typer.Option(
         None, "--schema", "-s", help="Path to the JSON schema file"
@@ -74,6 +80,9 @@ def lint_plan(
     fail_risk: float = typer.Option(
         0.8, "--fail-risk", "-r", help="Risk score threshold for failure (0-1)"
     ),
+    use_opa: bool = typer.Option(
+        False, "--opa", help="Use OPA for validation even for YAML policies"
+    ),
 ) -> None:
     """
     Validate a plan against a policy and schema.
@@ -82,29 +91,42 @@ def lint_plan(
         # Load the plan
         plan = load_plan(plan_file)
 
+        # Determine policy type if auto
+        is_rego = False
+        if policy_file and policy_type.lower() in ("auto", "rego"):
+            if policy_type.lower() == "rego" or is_rego_policy_file(policy_file):
+                is_rego = True
+
         # Load the policy
-        policy = load_policy(policy_file)
-        policy.fail_risk_threshold = fail_risk
+        policy_obj, rego_policy = load_policy(policy_file)
+        policy_obj.fail_risk_threshold = fail_risk
 
         # Load rules
         rules = load_rules()
 
         # Validate the plan
-        base_result = core.validate_plan(plan, policy)
+        if is_rego or rego_policy or use_opa:
+            # Use OPA validation
+            base_result = core.validate_plan(
+                plan, policy_obj, rego_policy, use_opa=True
+            )
+        else:
+            # Use built-in validation
+            base_result = core.validate_plan(plan, policy_obj)
 
         # Apply additional rules
         all_errors = list(base_result.errors)
 
         for rule_name, check_plan in rules.items():
             try:
-                rule_errors = check_plan(plan, policy)
+                rule_errors = check_plan(plan, policy_obj)
                 all_errors.extend(rule_errors)
             except Exception as e:
                 console.print(f"[yellow]Warning: Rule {rule_name} failed: {e}[/]")
 
         # Calculate final risk score
         risk_score = core.calculate_risk_score(
-            all_errors, base_result.warnings, policy.risk_weights
+            all_errors, base_result.warnings, policy_obj.risk_weights
         )
 
         # Determine final status
@@ -115,7 +137,7 @@ def lint_plan(
             status = Status.WARN
 
         # Override status based on risk threshold
-        if risk_score >= policy.fail_risk_threshold:
+        if risk_score >= policy_obj.fail_risk_threshold:
             status = Status.ERROR
 
         # Create the final result
