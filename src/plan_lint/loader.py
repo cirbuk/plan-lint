@@ -6,8 +6,7 @@ This module provides functionality for loading plans, schemas, and policies.
 
 import json
 import os
-from typing import Any, Dict, Optional, Tuple, Union
-from pathlib import Path
+from typing import Any, Dict, Optional, Tuple
 
 import jsonschema
 import yaml
@@ -77,7 +76,7 @@ def is_rego_policy_file(filepath: str) -> bool:
             return "package" in content and any(
                 rule in content for rule in ["default ", " = ", "{", "input."]
             )
-    except:
+    except Exception:
         return False
 
     return False
@@ -85,15 +84,16 @@ def is_rego_policy_file(filepath: str) -> bool:
 
 def load_policy(policy_path: Optional[str] = None) -> Tuple[Policy, Optional[str]]:
     """
-    Load a policy from a YAML or Rego file.
+    Load a policy file.
 
     Args:
-        policy_path: Path to a policy file (YAML or Rego)
+        policy_path: Path to policy file (YAML or Rego format)
 
     Returns:
         A tuple of (Policy object, Optional Rego policy string)
         For YAML policies, the Policy object is populated and Rego string is None
-        For Rego policies, a default Policy object is returned with the Rego content as a string
+        For Rego policies, a default Policy object is returned with the Rego
+        content as a string
     """
     if policy_path is None:
         return Policy(), None

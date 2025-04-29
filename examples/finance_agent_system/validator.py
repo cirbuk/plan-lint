@@ -9,20 +9,18 @@ import json
 import os
 import subprocess
 import tempfile
-from typing import Dict, Any, Optional, List, Union, Tuple
+from typing import Any, Dict, Optional, Tuple
 
+from plan_lint.core import validate_plan
+from plan_lint.loader import is_rego_policy_file, load_policy, load_rego_policy
 from plan_lint.types import (
-    Plan,
-    Policy,
-    Status,
-    PlanStep,
-    ValidationResult,
-    PlanError,
     ErrorCode,
-    PlanWarning,
+    Plan,
+    PlanError,
+    PlanStep,
+    Status,
+    ValidationResult,
 )
-from plan_lint.core import validate_plan, calculate_risk_score
-from plan_lint.loader import load_policy, is_rego_policy_file, load_rego_policy
 
 # Path to the policy file, relative to this script
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -86,7 +84,8 @@ def direct_opa_evaluation(plan: Plan, rego_policy_path: str) -> ValidationResult
             result_data = data["result"][0]["expressions"][0]["value"]
 
             # Extract the information
-            allow = result_data.get("allow", False)
+            # We don't need to use 'allow' since we determine validity
+            # based on other factors
             violations = result_data.get("violations", [])
             risk_score = result_data.get("risk_score", 0.0)
 
@@ -153,7 +152,8 @@ class PlanValidator:
         Initialize the plan validator with a policy.
 
         Args:
-            policy_path: Path to the policy file (YAML or Rego). If None, uses the default.
+            policy_path: Path to the policy file (YAML or Rego).
+                If None, uses the default.
             use_rego: Whether to explicitly use the Rego policy.
         """
         self.rego_policy = None
@@ -340,8 +340,9 @@ class PlanValidator:
         lines = ["❌ Plan validation failed:"]
 
         if result.get("risk_score", 0) >= self.policy.fail_risk_threshold:
+            threshold = self.policy.fail_risk_threshold
             lines.append(
-                f"- Risk score {result['risk_score']:.2f} exceeds threshold {self.policy.fail_risk_threshold}"
+                f"- Risk score {result['risk_score']:.2f} exceeds threshold {threshold}"
             )
 
         for error in result.get("errors", []):
@@ -404,7 +405,10 @@ def validate_finance_plan_rego(plan_json: str) -> Tuple[bool, str]:
     if is_valid:
         message = "Plan validation passed with Rego policy!"
         if not validator.has_opa:
-            message = "Plan validation passed! (Using built-in validation as OPA is not installed)"
+            message = (
+                "Plan validation passed! "
+                "(Using built-in validation as OPA is not installed)"
+            )
     else:
         message = validator.format_validation_error(result)
 

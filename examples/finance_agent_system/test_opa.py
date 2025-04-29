@@ -6,11 +6,10 @@ This script tests whether OPA is correctly set up and can evaluate the Rego poli
 against a sample plan.
 """
 
-import os
-import sys
 import json
+import os
 import subprocess
-from pathlib import Path
+import sys
 import tempfile
 
 # Add the project root to the Python path if needed
@@ -21,7 +20,7 @@ sys.path.insert(0, project_root)
 
 # Try import from the finance agent system
 try:
-    from validator import validate_finance_plan_rego, is_opa_installed
+    from validator import is_opa_installed, validate_finance_plan_rego
 except ImportError:
     print("Error: Cannot import from validator.py")
     sys.exit(1)
@@ -92,7 +91,7 @@ def test_direct_opa_evaluation(plan_json, policy_path):
                 violations = result_data.get("violations", [])
                 risk_score = result_data.get("risk_score", 0.0)
 
-                print(f"\nExtracted data:")
+                print("\nExtracted data:")
                 print(f"- allow: {allow}")
                 print(f"- risk_score: {risk_score}")
                 print(f"- violations count: {len(violations)}")

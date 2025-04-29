@@ -4,12 +4,14 @@ Realistic demo script for plan-lint's finance agent system.
 This shows realistic LLM plan generation time but actual (fast) validation speed.
 """
 
-import sys
-import os
 import argparse
-import time
+import json
+import os
 import random
-from colorama import init, Fore, Style
+import sys
+import time
+
+from colorama import Fore, Style, init
 
 # Initialize colorama
 init()
@@ -18,7 +20,7 @@ init()
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
-# Import the needed modules
+# Import the needed modules - now immediately following sys.path modification
 from examples.finance_agent_system.main import SAMPLE_PLANS, USER_PROMPTS
 from examples.finance_agent_system.validator import validate_finance_plan
 
@@ -87,8 +89,6 @@ def run_scenario(scenario, fast_mode=False):
         )
 
     # Generate plan JSON
-    import json
-
     plan_json = json.dumps(plan, indent=2)
 
     # Show the plan generation with typing effect

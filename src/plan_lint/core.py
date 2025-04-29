@@ -5,7 +5,7 @@ This module provides the main functionality for validating plans against policie
 """
 
 import re
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from plan_lint.types import (
     ErrorCode,

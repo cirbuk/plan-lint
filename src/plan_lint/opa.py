@@ -5,15 +5,15 @@ This module provides functionality for evaluating plans against
 policies written in Rego for the Open Policy Agent (OPA).
 """
 
-from typing import Dict, Any, List, Optional, Union
 import json
 import logging
+import os
 import subprocess
 import tempfile
-import os
 from pathlib import Path
+from typing import Optional, Union
 
-from plan_lint.types import Plan, Policy, PlanError, ErrorCode, ValidationResult, Status
+from plan_lint.types import ErrorCode, Plan, PlanError, Policy, Status, ValidationResult
 
 # Configure logger
 logger = logging.getLogger(__name__)
@@ -84,7 +84,7 @@ def policy_to_rego(policy: Policy) -> str:
                     rego_policy += f'    tool == "{tool_name}" {{\n'
                     rego_policy += f'        args["{arg_name}"] >= {min_val}\n'
                     rego_policy += f'        args["{arg_name}"] <= {max_val}\n'
-                    rego_policy += f"    }}\n"
+                    rego_policy += "    }\n"
 
         rego_policy += "}\n\n"
 
@@ -105,9 +105,9 @@ def policy_to_rego(policy: Policy) -> str:
         rego_policy += "}\n\n"
 
     # Max steps check
-    rego_policy += f"steps_within_limit {{\n"
+    rego_policy += "steps_within_limit {\n"
     rego_policy += f"    count(input.steps) <= {policy.max_steps}\n"
-    rego_policy += f"}}\n\n"
+    rego_policy += "}\n\n"
 
     # Violations for detailed error reporting
     rego_policy += "# Gather violations for detailed error reporting\n"
@@ -138,8 +138,11 @@ def policy_to_rego(policy: Policy) -> str:
                 rego_policy += f"    # Check violation for {bound_path}\n"
                 rego_policy += f'    tool == "{tool_name}"\n'
                 rego_policy += f'    arg_val := args["{arg_name}"]\n'
-                rego_policy += f"    (arg_val < {min_val} or arg_val > {max_val})\n"
-                rego_policy += f'    msg := concat("", ["Argument \'{arg_name}\' value ", to_string(arg_val), " is outside bounds [{min_val}, {max_val}]"])\n'
+                rego_policy += f"    arg_val < {min_val} or arg_val > {max_val})\n"
+                rego_policy += '    msg := concat("", ["Argument \'", '
+                rego_policy += f'"{arg_name}", "\' value ", '
+                rego_policy += "to_string(arg_val), "
+                rego_policy += f'" is outside bounds [{min_val}, {max_val}]"])\n'
 
     rego_policy += "}\n\n"
 
@@ -151,13 +154,16 @@ def policy_to_rego(policy: Policy) -> str:
     rego_policy += "    args_str := json.marshal(step.args)\n"
     rego_policy += "    pattern := sensitive_patterns[_]\n"
     rego_policy += "    regex.match(pattern, args_str)\n"
-    rego_policy += '    msg := concat("", ["Potentially sensitive data matching pattern \'", pattern, "\' found in arguments"])\n'
+    rego_policy += '    msg := concat("", ["Potentially sensitive data matching '
+    rego_policy += 'pattern \'", pattern, "\' found in arguments"])\n'
     rego_policy += "}\n\n"
 
     # Max steps exceeded violation
     rego_policy += 'violations[{"code": "MAX_STEPS_EXCEEDED", "msg": msg}] {\n'
     rego_policy += f"    count(input.steps) > {policy.max_steps}\n"
-    rego_policy += f'    msg := concat("", ["Plan has ", to_string(count(input.steps)), " steps, exceeding max of {policy.max_steps}"])\n'
+    rego_policy += '    msg := concat("", ["Plan has ", '
+    rego_policy += "to_string(count(input.steps)), "
+    rego_policy += f'" steps, exceeding max of {policy.max_steps}"])\n'
     rego_policy += "}\n"
 
     return rego_policy
@@ -206,10 +212,11 @@ def evaluate_with_opa(
             # Check if OPA is installed
             try:
                 subprocess.run(["opa", "version"], check=True, capture_output=True)
-            except (subprocess.SubprocessError, FileNotFoundError):
+            except (subprocess.SubprocessError, FileNotFoundError) as err:
                 raise OPAError(
-                    "OPA executable not found. Please install OPA and ensure it's in your PATH."
-                )
+                    "OPA executable not found. Please install OPA and ensure "
+                    "it's in your PATH."
+                ) from err
 
             # Evaluate policy
             result = subprocess.run(
@@ -231,23 +238,16 @@ def evaluate_with_opa(
             # Parse OPA output
             opa_result = json.loads(result.stdout)
 
-            # Extract allow/deny result
-            is_allowed = False
+            # Process OPA results
             if "result" in opa_result and len(opa_result["result"]) > 0:
-                is_allowed = (
+                # We don't need to store this result as it's not used
+                # Just access the data directly
+                violations = (
                     opa_result["result"][0]
                     .get("expressions", [{}])[0]
-                    .get("value", False)
+                    .get("value", {})
+                    .get("violations", [])
                 )
-
-            # Extract violations
-            violations = []
-            if "result" in opa_result and len(opa_result["result"]) > 1:
-                violations_result = (
-                    opa_result["result"][1].get("expressions", [{}])[0].get("value", [])
-                )
-                for v in violations_result:
-                    violations.append(v)
 
             # Convert violations to PlanError objects
             errors = []
@@ -279,7 +279,7 @@ def evaluate_with_opa(
             )
 
         except subprocess.SubprocessError as e:
-            raise OPAError(f"OPA evaluation failed: {e}")
+            raise OPAError(f"OPA evaluation failed: {e}") from e
 
     finally:
         # Clean up temporary files

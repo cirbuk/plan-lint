@@ -6,14 +6,13 @@ system to validate plans before execution, intercepting potentially dangerous
 operations.
 """
 
-import os
-import json
-import time
-import random
 import argparse
+import json
+import random
 import sys
+import time
 from datetime import datetime, timedelta
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Any, Dict, Tuple
 
 # Comment out the actual agent import for demo purposes
 # This allows the example to be run without installing the Agents SDK
@@ -25,19 +24,17 @@ try:
     from .validator import (
         validate_finance_plan,
         validate_finance_plan_rego,
-        PlanValidator,
     )
 except ImportError:
     # For direct script execution
     from validator import (
         validate_finance_plan,
         validate_finance_plan_rego,
-        PlanValidator,
     )
 
 # Try to import colorama for cross-platform terminal colors
 try:
-    from colorama import init, Fore, Style
+    from colorama import Fore, Style, init
 
     init()  # Initialize colorama
     HAS_COLOR = True

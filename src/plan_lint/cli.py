@@ -13,10 +13,10 @@ import typer
 from rich.console import Console
 
 from plan_lint import core
-from plan_lint.loader import load_plan, load_policy, is_rego_policy_file
+from plan_lint.loader import is_rego_policy_file, load_plan, load_policy
 from plan_lint.reporters import cli as cli_reporter
 from plan_lint.reporters import json as json_reporter
-from plan_lint.types import Status, ValidationResult, Policy
+from plan_lint.types import Status, ValidationResult
 
 # Initialize the CLI app
 app = typer.Typer(

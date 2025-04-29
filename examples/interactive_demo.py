@@ -6,10 +6,11 @@ This script provides a quick demonstration of plan-lint validating plans
 in real-time with timing information - ideal for presentations and videos.
 """
 
-import sys
-import os
 import argparse
-from colorama import init, Fore, Style
+import os
+import sys
+
+from colorama import Fore, Style, init
 
 # Initialize colorama
 init()
@@ -80,14 +81,15 @@ def main():
 
     # Import the main function to run scenarios
     from examples.finance_agent_system.main import (
-        simulate_agent_execution,
         USER_PROMPTS,
+        simulate_agent_execution,
     )
 
     # Function to run a single scenario
     def run_scenario(scenario):
-        # Build arguments for the scenario
-        scenario_args = ["--simulated", "--fast", "--scenario", scenario]
+        # These args would be used in a real CLI call, but we're importing directly
+        # so we don't need them - just documenting what would be passed
+        # scenario_args = ["--simulated", "--fast", "--scenario", scenario]
 
         # If running in interactive mode, show the user prompt first
         if args.interactive:

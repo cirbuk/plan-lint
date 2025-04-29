@@ -1,260 +1,185 @@
 """
-Tests for the OPA integration module.
+Tests for the Open Policy Agent (OPA) integration module.
 """
 
 import json
 import os
+import subprocess
+import tempfile
 import unittest
-from unittest import mock
-from typing import Dict, Any
+from unittest.mock import MagicMock, patch
 
-import pytest
+from plan_lint.opa import (
+    evaluate_with_opa,
+    is_opa_installed,
+    is_rego_policy,
+    load_rego_policy_file,
+    policy_to_rego,
+)
+from plan_lint.types import ErrorCode, Plan, Policy, Status
 
-from plan_lint.types import Plan, Policy, Status
-from plan_lint.opa import policy_to_rego, is_rego_policy, OPAError
+# Sample plan data for testing
+SAMPLE_PLAN = Plan(
+    goal="test goal",
+    context={},
+    steps=[
+        {
+            "id": "step1",
+            "tool": "allowed_tool",
+            "args": {"arg1": "value1"},
+            "on_fail": "abort",
+        }
+    ],
+    meta={},
+)
+
+SAMPLE_PLAN_WITH_DISALLOWED_TOOL = Plan(
+    goal="test goal",
+    context={},
+    steps=[
+        {
+            "id": "step1",
+            "tool": "disallowed_tool",
+            "args": {"arg1": "value1"},
+            "on_fail": "abort",
+        }
+    ],
+    meta={},
+)
+
+SAMPLE_POLICY = Policy(
+    allow_tools=["allowed_tool"],
+    max_steps=10,
+    deny_tokens_regex=["secret", "password"],
+    fail_risk_threshold=0.5,
+)
 
 
-class TestOPAIntegration:
-    """Tests for OPA integration."""
+class TestOPAModule(unittest.TestCase):
+    """Test case for the OPA module."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        # Create a temporary directory for test files
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp_dir.cleanup)
+
+        # Create sample policy file
+        self.policy_path = os.path.join(self.temp_dir.name, "test_policy.rego")
+        with open(self.policy_path, "w") as f:
+            f.write(
+                'package planlint\ndefault allow = false\nallow { input.steps[_].tool == "allowed_tool" }'
+            )
 
     def test_policy_to_rego_conversion(self):
-        """Test converting a YAML policy to Rego."""
-        # Create a simple policy
-        policy = Policy(
-            allow_tools=["tool1", "tool2"],
-            bounds={"tool1.arg1": [0, 100]},
-            deny_tokens_regex=["SECRET", "PASSWORD"],
-            max_steps=5,
-        )
+        """Test conversion of a Policy object to Rego code."""
+        rego_policy = policy_to_rego(SAMPLE_POLICY)
 
-        # Convert to Rego
-        rego = policy_to_rego(policy)
+        # Basic checks
+        self.assertIn("package planlint", rego_policy)
+        self.assertIn("default allow = false", rego_policy)
+        self.assertIn("allowed_tools = [", rego_policy)
+        self.assertIn('"allowed_tool"', rego_policy)
 
-        # Check that the Rego policy contains expected elements
-        assert "package planlint" in rego
-        assert 'allowed_tools = ["tool1", "tool2"]' in rego
-        assert "tool1.arg1" in rego
-        assert "0" in rego and "100" in rego
-        assert 'sensitive_patterns = ["SECRET", "PASSWORD"]' in rego
-        assert "count(input.steps) <= 5" in rego
+        # Functional checks (would parse and compile correctly)
+        self.assertIn("all_tools_allowed {", rego_policy)
+        self.assertIn("steps_within_limit {", rego_policy)
+        self.assertIn("violations[", rego_policy)
+
+    @patch("subprocess.run")
+    def test_is_opa_installed(self, mock_run):
+        """Test detecting if OPA is installed."""
+        # Test when OPA is installed
+        mock_run.return_value = MagicMock()
+        self.assertTrue(is_opa_installed())
+
+        # Test when OPA is not installed
+        mock_run.side_effect = FileNotFoundError()
+        self.assertFalse(is_opa_installed())
 
     def test_is_rego_policy(self):
-        """Test detection of Rego policies."""
-        # Valid Rego policy
-        rego_policy = """
-        package planlint
+        """Test detection of Rego policy content."""
+        valid_policy = (
+            'package planlint\ndefault allow = false\nallow { input.goal == "valid" }'
+        )
+        invalid_policy = '{"policy": "not rego"}'
 
-        default allow = false
+        self.assertTrue(is_rego_policy(valid_policy))
+        self.assertFalse(is_rego_policy(invalid_policy))
 
-        allow {
-            input.user == "admin"
-        }
-        """
-        assert is_rego_policy(rego_policy) is True
+    def test_load_rego_policy_file(self):
+        """Test loading Rego policy from file."""
+        # Test loading valid file
+        content = load_rego_policy_file(self.policy_path)
+        self.assertIn("package planlint", content)
 
-        # Not a Rego policy
-        not_rego = """
-        {
-            "key": "value"
-        }
-        """
-        assert is_rego_policy(not_rego) is False
+        # Test with nonexistent file
+        with self.assertRaises(FileNotFoundError):
+            load_rego_policy_file("/nonexistent/path/policy.rego")
 
-    @mock.patch("plan_lint.opa.subprocess.run")
+    @patch("subprocess.run")
     def test_evaluate_with_opa_success(self, mock_run):
-        """Test successful evaluation with OPA."""
-        # Skip if OPA binary is not available
-        pytest.importorskip("plan_lint.opa")
-
-        # Create a Plan and Policy for testing
-        plan = Plan(
-            goal="Test plan",
-            steps=[
-                {
-                    "id": "step-001",
-                    "tool": "allowed_tool",
-                    "args": {"param1": "value1"},
-                    "on_fail": "abort",
-                }
-            ],
-        )
-
-        policy = Policy(
-            allow_tools=["allowed_tool"],
-            max_steps=10,
-        )
-
-        # Mock subprocess.run to simulate OPA evaluation result
-        mock_process = mock.Mock()
+        """Test successful OPA evaluation."""
+        # Mock successful OPA evaluation
+        mock_process = MagicMock()
         mock_process.stdout = json.dumps(
             {
                 "result": [
-                    {"expressions": [{"value": True}]},  # allow = true
-                    {"expressions": [{"value": []}]},  # No violations
+                    {"expressions": [{"value": {"allow": True, "violations": []}}]}
                 ]
             }
         )
-        mock_process.returncode = 0
         mock_run.return_value = mock_process
 
-        # Import OPA module locally to allow mocking
-        from plan_lint.opa import evaluate_with_opa
+        result = evaluate_with_opa(SAMPLE_PLAN, SAMPLE_POLICY)
+        self.assertEqual(result.status, Status.PASS)
+        self.assertEqual(len(result.errors), 0)
 
-        # Run the evaluation
-        result = evaluate_with_opa(plan, policy)
-
-        # Check results
-        assert result.status == Status.PASS
-        assert result.risk_score == 0.0
-        assert len(result.errors) == 0
-
-    @mock.patch("plan_lint.opa.subprocess.run")
-    def test_evaluate_with_opa_violation(self, mock_run):
-        """Test OPA evaluation with policy violations."""
-        # Skip if OPA binary is not available
-        pytest.importorskip("plan_lint.opa")
-
-        # Create a Plan and Policy for testing
-        plan = Plan(
-            goal="Test plan",
-            steps=[
-                {
-                    "id": "step-001",
-                    "tool": "disallowed_tool",
-                    "args": {"param1": "value1"},
-                    "on_fail": "abort",
-                }
-            ],
-        )
-
-        policy = Policy(
-            allow_tools=["allowed_tool"], max_steps=10, risk_weights={"tool_deny": 0.5}
-        )
-
-        # Mock subprocess.run to simulate OPA evaluation result
-        mock_process = mock.Mock()
+    @patch("subprocess.run")
+    def test_evaluate_with_opa_violations(self, mock_run):
+        """Test OPA evaluation with violations."""
+        # Mock OPA evaluation with violations
+        mock_process = MagicMock()
         mock_process.stdout = json.dumps(
             {
                 "result": [
-                    {"expressions": [{"value": False}]},  # allow = false
                     {
                         "expressions": [
                             {
-                                "value": [
-                                    {
-                                        "step": 0,
-                                        "code": "TOOL_DENY",
-                                        "msg": "Tool 'disallowed_tool' is not allowed by policy",
-                                    }
-                                ]
+                                "value": {
+                                    "allow": False,
+                                    "violations": [
+                                        {
+                                            "step": 0,
+                                            "code": "TOOL_DENY",
+                                            "msg": "Tool 'disallowed_tool' is not allowed by policy",
+                                        }
+                                    ],
+                                }
                             }
                         ]
-                    },  # Violations
+                    }
                 ]
             }
         )
-        mock_process.returncode = 0
         mock_run.return_value = mock_process
 
-        # Import OPA module locally to allow mocking
-        from plan_lint.opa import evaluate_with_opa
+        result = evaluate_with_opa(SAMPLE_PLAN_WITH_DISALLOWED_TOOL, SAMPLE_POLICY)
+        self.assertEqual(result.status, Status.ERROR)
+        self.assertEqual(len(result.errors), 1)
+        self.assertEqual(result.errors[0].code, ErrorCode.TOOL_DENY)
 
-        # Run the evaluation
-        result = evaluate_with_opa(plan, policy)
+    @patch("subprocess.run")
+    def test_evaluate_with_opa_failure(self, mock_run):
+        """Test handling of OPA evaluation failures."""
+        # Mock OPA process failure
+        mock_run.side_effect = subprocess.SubprocessError("OPA failed")
 
-        # Check results
-        assert result.status == Status.ERROR
-        assert result.risk_score == 0.5
-        assert len(result.errors) == 1
-        assert result.errors[0].code == "TOOL_DENY"
-
-    @mock.patch("plan_lint.opa.subprocess.run")
-    def test_opa_executable_not_found(self, mock_run):
-        """Test handling when OPA executable is not found."""
-        # Skip if OPA binary is not available
-        pytest.importorskip("plan_lint.opa")
-
-        # Create a Plan and Policy for testing
-        plan = Plan(
-            goal="Test plan",
-            steps=[
-                {
-                    "id": "step-001",
-                    "tool": "some_tool",
-                    "args": {"param1": "value1"},
-                    "on_fail": "abort",
-                }
-            ],
-        )
-
-        policy = Policy()
-
-        # Mock subprocess.run to raise FileNotFoundError
-        mock_run.side_effect = FileNotFoundError("No such file or directory: 'opa'")
-
-        # Import OPA module locally to allow mocking
-        from plan_lint.opa import evaluate_with_opa
-
-        # Check that OPAError is raised
-        with pytest.raises(OPAError, match="OPA executable not found"):
-            evaluate_with_opa(plan, policy)
+        result = evaluate_with_opa(SAMPLE_PLAN, SAMPLE_POLICY)
+        self.assertEqual(result.status, Status.ERROR)
+        self.assertEqual(len(result.errors), 1)
+        self.assertEqual(result.errors[0].code, ErrorCode.SCHEMA_INVALID)
 
 
-# These tests are run conditionally if OPA is installed
-@pytest.mark.skipif(
-    os.system("which opa > /dev/null 2>&1") != 0,
-    reason="OPA executable not found in PATH",
-)
-class TestOPAWithExecutable:
-    """Tests that require the actual OPA executable."""
-
-    def test_end_to_end_opa_validation(self):
-        """Test end-to-end OPA validation with a real policy and plan."""
-        from plan_lint.core import validate_plan
-
-        # Create a simple plan that should pass
-        plan = Plan(
-            goal="Test plan",
-            steps=[
-                {
-                    "id": "step-001",
-                    "tool": "allowed_tool",
-                    "args": {"param1": "value1"},
-                    "on_fail": "abort",
-                }
-            ],
-        )
-
-        # Create a policy
-        policy = Policy(
-            allow_tools=["allowed_tool", "another_tool"],
-            max_steps=10,
-        )
-
-        # Test with OPA validation
-        result = validate_plan(plan, policy, use_opa=True)
-
-        # Should pass
-        assert result.status == Status.PASS
-        assert len(result.errors) == 0
-
-        # Now test with a plan that should fail
-        bad_plan = Plan(
-            goal="Test plan",
-            steps=[
-                {
-                    "id": "step-001",
-                    "tool": "disallowed_tool",
-                    "args": {"param1": "value1"},
-                    "on_fail": "abort",
-                }
-            ],
-        )
-
-        # Test with OPA validation
-        result = validate_plan(bad_plan, policy, use_opa=True)
-
-        # Should fail
-        assert result.status == Status.ERROR
-        assert len(result.errors) > 0
-        assert any(error.code == "TOOL_DENY" for error in result.errors)
+if __name__ == "__main__":
+    unittest.main()

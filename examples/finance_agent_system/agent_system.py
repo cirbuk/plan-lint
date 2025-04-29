@@ -6,13 +6,12 @@ for financial operations, showing how plan-lint can be integrated to catch
 potentially dangerous operations before they are executed.
 """
 
-import os
-import json
-from typing import Dict, Any, List, Optional, Tuple
 import asyncio
+import json
+import os
+from typing import Any, Dict
 
 from agents import Agent, Runner, Tool
-
 from validator import validate_finance_plan
 
 # Sample data for simulation
@@ -228,12 +227,9 @@ async def handle_financial_request(request: str, scenario: str = "standard") -> 
         Result of processing the request
     """
     # First, have the orchestrator understand the request
-    orchestrator_result = await Runner.run(
-        orchestrator_agent,
-        f"User request: {request}\n\nDetermine which agent should handle this.",
-    )
-
-    orchestrator_output = orchestrator_result.final_output
+    # We keep the result variable even though it's not used directly,
+    # as we want the orchestrator to process the request
+    _ = await orchestrator_agent.run(query=request, params={"user_context": request})
 
     # Get the planning agent to create a plan
     planning_message = f"Create a step-by-step plan to: {request}"

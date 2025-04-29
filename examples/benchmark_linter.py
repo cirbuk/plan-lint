@@ -1,102 +1,90 @@
 #!/usr/bin/env python
 """
-Benchmark script for measuring the actual performance of plan-lint.
-This script measures the raw performance of the validation process
-without any artificial delays.
+Benchmark script to measure the performance of the plan-lint validation process.
+
+This script measures validation times over multiple iterations to ensure
+performance remains within acceptable limits.
 """
 
-import json
-import time
-import statistics
 import os
+import statistics
 import sys
+import time
+from pathlib import Path
 
-# Add the project root to the Python path if needed
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Add the project root to Python path
+project_root = str(Path(os.path.dirname(__file__)).parent)
 sys.path.insert(0, project_root)
 
-from examples.finance_agent_system.validator import validate_finance_plan
+# Import after setting path - no longer marked as E402 because they follow sys.path modification
 from examples.finance_agent_system.main import SAMPLE_PLANS
+from examples.finance_agent_system.validator import validate_finance_plan
 
 
 def benchmark_validation(iterations=100):
-    """
-    Benchmark the plan validation performance.
-
-    Args:
-        iterations: Number of validation runs to perform
-
-    Returns:
-        Dictionary with timing statistics in milliseconds
-    """
-    # Get sample plans from the examples
-    plans = SAMPLE_PLANS
-
+    """Benchmark the validation performance over a specified number of iterations."""
     results = {}
 
-    # Test each plan type
-    for plan_name, plan_data in plans.items():
-        print(f"Benchmarking plan type: {plan_name}")
-        plan_json = json.dumps(plan_data)
+    print(f"Running benchmark with {iterations} iterations...")
+    print("This may take a few seconds...")
 
-        # Run multiple iterations to get accurate timing
-        execution_times = []
-        for i in range(iterations):
-            start_time = time.time()
+    for plan_type, plan_data in SAMPLE_PLANS.items():
+        print(f"Benchmarking plan type: {plan_type}")
+        timings = []
 
-            # Run the actual validation (without any display or artificial delays)
-            validate_finance_plan(plan_json)
-
-            end_time = time.time()
+        # Run the validation multiple times and measure execution time
+        for _ in range(iterations):
+            start_time = time.perf_counter()
+            validate_finance_plan(plan_data)
+            end_time = time.perf_counter()
             execution_time_ms = (end_time - start_time) * 1000
-            execution_times.append(execution_time_ms)
+            timings.append(execution_time_ms)
 
         # Calculate statistics
-        results[plan_name] = {
-            "min_ms": min(execution_times),
-            "max_ms": max(execution_times),
-            "mean_ms": statistics.mean(execution_times),
-            "median_ms": statistics.median(execution_times),
-            "iterations": iterations,
+        results[plan_type] = {
+            "min": min(timings),
+            "max": max(timings),
+            "mean": statistics.mean(timings),
+            "median": statistics.median(timings),
         }
 
     return results
 
 
 def main():
-    """Main entry point for the benchmark script."""
-    print("Benchmarking plan-lint validator...")
-    print("Running validation without any artificial delays or simulations")
-    print("-" * 70)
-
+    """Execute the benchmark and display results."""
     # Run the benchmark
-    results = benchmark_validation(iterations=100)
+    results = benchmark_validation()
 
-    # Display results
-    print("\nBenchmark Results:\n")
-    print(
-        f"{'Plan Type':<15} {'Min (ms)':<10} {'Max (ms)':<10} {'Mean (ms)':<10} {'Median (ms)':<12}"
-    )
-    print("-" * 70)
+    # Print the results in a formatted table
+    print("\nBenchmark Results (milliseconds):")
+    print("-" * 60)
+    print(f"{'Plan Type':<20} {'Min':>8} {'Max':>8} {'Mean':>8} {'Median':>8}")
+    print("-" * 60)
 
-    for plan_name, stats in results.items():
+    total_avg = 0
+    count = 0
+
+    for plan_type, stats in results.items():
         print(
-            f"{plan_name:<15} {stats['min_ms']:<10.2f} {stats['max_ms']:<10.2f} {stats['mean_ms']:<10.2f} {stats['median_ms']:<12.2f}"
+            f"{plan_type:<20} {stats['min']:>8.2f} {stats['max']:>8.2f} "
+            f"{stats['mean']:>8.2f} {stats['median']:>8.2f}"
         )
+        total_avg += stats["mean"]
+        count += 1
 
-    # Calculate overall average
-    all_means = [stats["mean_ms"] for stats in results.values()]
-    overall_mean = statistics.mean(all_means)
+    print("-" * 60)
+    overall_avg = total_avg / count
+    print(f"Overall Average: {overall_avg:.2f} ms")
 
-    print("-" * 70)
-    print(f"Overall average validation time: {overall_mean:.2f} ms")
-
-    # Validate against your 50ms target
-    if overall_mean < 50:
-        print("\n✅ Validation is UNDER the 50ms target")
+    # Check if we're meeting our target (50ms)
+    target_ms = 50
+    if overall_avg <= target_ms:
+        print(f"\nPerformance is GOOD: {overall_avg:.2f}ms (target: {target_ms}ms)")
     else:
         print(
-            f"\n❌ Validation is OVER the 50ms target ({overall_mean:.2f} ms vs 50 ms)"
+            f"\nPerformance needs improvement: {overall_avg:.2f}ms "
+            f"(target: {target_ms}ms)"
         )
 
 
