@@ -198,19 +198,13 @@ pip install -e ".[docs]"
 mkdocs serve
 ```
 
-The documentation includes:
-- Detailed guides on policy authoring
-- Examples of integrating with MCP servers
-- API reference
-- Advanced usage scenarios
+### Documentation Versions
 
-You can also build a static version of the documentation:
+Our documentation is versioned and hosted on GitHub Pages. The latest version is always available at [https://cirbuk.github.io/plan-lint/](https://cirbuk.github.io/plan-lint/).
 
-```bash
-mkdocs build
-```
+Each release creates a new documentation version that can be accessed from the version selector in the documentation site.
 
-This will create a `site` directory with the static HTML documentation.
+Documentation is automatically built and deployed whenever changes are made to the documentation files, the `mkdocs.yml` configuration, or when a new release is created.
 
 ## 📄 License
 

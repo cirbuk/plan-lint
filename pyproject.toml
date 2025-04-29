@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "plan-lint"
-version = "0.0.2"
+version = "0.0.3"
 description = "plan-linter is a static analysis toolkit for LLM agent plans"
 readme = "README.md"
 requires-python = ">=3.11"
