@@ -1,0 +1,2140 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Plan-lint is a static analysis toolkit for validating LLM agent plans before execution">
+      
+      
+        <meta name="author" content="Plan-lint Team">
+      
+      
+        <link rel="canonical" href="https://github.com/cirbuk/plan-lint/latest/policy-authoring/">
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../examples/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Policy Authoring Guide - Plan-Lint SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#policy-authoring-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Plan-Lint SDK" class="md-header__button md-logo" aria-label="Plan-Lint SDK" data-md-component="logo">
+      
+  <img src="../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Plan-Lint SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Policy Authoring Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cirbuk/plan-lint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cirbuk/plan-lint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Plan-Lint SDK" class="md-nav__button md-logo" aria-label="Plan-Lint SDK" data-md-component="logo">
+      
+  <img src="../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Plan-Lint SDK
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cirbuk/plan-lint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cirbuk/plan-lint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Policy Authoring Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Policy Authoring Guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-rego" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to Rego
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction to Rego">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-rego-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Rego Concepts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plan-lint-policy-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plan-Lint Policy Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plan-Lint Policy Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Naming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-policy-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Policy Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-input-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Input Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-first-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Your First Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-policy-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Policy Techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Policy Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-context-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Context Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-dependencies-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step Dependencies Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-rego-built-in-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Rego Built-in Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-matching-and-string-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Matching and String Operations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-your-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Your Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-multiple-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizing Multiple Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-patterns-for-plan-lint-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Patterns for Plan-Lint Policies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Patterns for Plan-Lint Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detecting-dangerous-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detecting Dangerous Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enforcing-tool-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enforcing Tool Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contextual-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contextual Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#policy-version-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Policy Version Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-rate-limiting-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Rate Limiting Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/finance-agent-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finance Agent System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/sql-injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL Injection Prevention
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/custom-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../documentation/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/plan-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plan Structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/policy-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Policy Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/rule-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rule Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/risk-scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Risk Scoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/mcp-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/custom-rule-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Rule Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/loader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loader
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/validator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/opa-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OPA Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/automating-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Automating Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/ci-cd-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CI/CD Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-rego" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to Rego
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction to Rego">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-rego-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Rego Concepts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plan-lint-policy-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plan-Lint Policy Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plan-Lint Policy Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Naming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-policy-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Policy Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-input-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Input Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-first-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Your First Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-policy-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Policy Techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Policy Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-context-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Context Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-dependencies-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step Dependencies Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-rego-built-in-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Rego Built-in Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-matching-and-string-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Matching and String Operations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-your-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Your Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizing-multiple-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizing Multiple Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-patterns-for-plan-lint-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Patterns for Plan-Lint Policies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Patterns for Plan-Lint Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detecting-dangerous-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detecting Dangerous Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enforcing-tool-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enforcing Tool Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contextual-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contextual Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#policy-version-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Policy Version Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-rate-limiting-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Rate Limiting Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="policy-authoring-guide">Policy Authoring Guide<a class="headerlink" href="#policy-authoring-guide" title="Permanent link">&para;</a></h1>
+<p>This guide will help you create custom policies for Plan-Lint using the Rego policy language.</p>
+<h2 id="introduction-to-rego">Introduction to Rego<a class="headerlink" href="#introduction-to-rego" title="Permanent link">&para;</a></h2>
+<p>Plan-Lint uses <a href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego</a>, the policy language of Open Policy Agent (OPA), for defining validation rules. Rego is a declarative language specifically designed for expressing policies over complex data structures.</p>
+<h3 id="basic-rego-concepts">Basic Rego Concepts<a class="headerlink" href="#basic-rego-concepts" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Rules</strong>: Define conditions that should be met</li>
+<li><strong>Packages</strong>: Group related rules together</li>
+<li><strong>Imports</strong>: Include reusable functions or definitions</li>
+<li><strong>Variables</strong>: Store intermediate values</li>
+<li><strong>Comprehensions</strong>: Create collections by filtering and mapping</li>
+</ul>
+<h2 id="plan-lint-policy-structure">Plan-Lint Policy Structure<a class="headerlink" href="#plan-lint-policy-structure" title="Permanent link">&para;</a></h2>
+<h3 id="package-naming">Package Naming<a class="headerlink" href="#package-naming" title="Permanent link">&para;</a></h3>
+<p>All Plan-Lint policies should be defined in the <code>planlint.custom</code> package:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+</code></pre></div>
+<h3 id="basic-policy-format">Basic Policy Format<a class="headerlink" href="#basic-policy-format" title="Permanent link">&para;</a></h3>
+<p>A typical policy rule follows this pattern:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="c1"># Rule conditions</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1"># ...</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rule_name&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Human-readable message explaining the violation&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1"># &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;, or &quot;critical&quot;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;category_name&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1"># e.g., &quot;security&quot;, &quot;performance&quot;, etc.</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;affected_step_id&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">            </span><span class="c1"># Additional information about the violation</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="available-input-data">Available Input Data<a class="headerlink" href="#available-input-data" title="Permanent link">&para;</a></h3>
+<p>In your policies, you have access to:</p>
+<ul>
+<li><code>input.plan</code>: The full plan being validated</li>
+<li><code>input.context</code>: Additional context data provided during validation</li>
+</ul>
+<h2 id="writing-your-first-policy">Writing Your First Policy<a class="headerlink" href="#writing-your-first-policy" title="Permanent link">&para;</a></h2>
+<p>Let's create a simple policy that detects file operations on sensitive paths:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Define sensitive paths</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">sensitive_paths</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/etc/passwd&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/etc/shadow&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/var/log/auth.log&quot;</span><span class="p">]</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># Check if a file operation targets a sensitive path</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;file_operation&quot;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">sensitive_paths</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="n">startswith</span><span class="p">(</span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sensitive_path_access&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Operation attempts to access a sensitive system path&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">            </span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">path</span><span class="p">,</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">            </span><span class="s2">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">operation</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="advanced-policy-techniques">Advanced Policy Techniques<a class="headerlink" href="#advanced-policy-techniques" title="Permanent link">&para;</a></h2>
+<h3 id="using-context-data">Using Context Data<a class="headerlink" href="#using-context-data" title="Permanent link">&para;</a></h3>
+<p>You can leverage context data to create more dynamic policies:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Check if a requested permission exceeds user&#39;s role</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;request_permission&quot;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1"># Get user role from context</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="n">user_role</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">user_role</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="c1"># Define allowed permissions per role</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">allowed_permissions</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="s2">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">],</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">        </span><span class="s2">&quot;editor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;write&quot;</span><span class="p">],</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="s2">&quot;admin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;write&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;configure&quot;</span><span class="p">]</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="c1"># Check if requested permission is allowed for this role</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="k">not</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">permission</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">allowed_permissions</span><span class="p">[</span><span class="n">user_role</span><span class="p">]</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;permission_exceeds_role&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">sprintf</span><span class="p">(</span><span class="s2">&quot;User with role &#39;%s&#39; cannot request &#39;%s&#39; permission&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">user_role</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">permission</span><span class="p">]),</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;access_control&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">            </span><span class="s2">&quot;requested_permission&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">permission</span><span class="p">,</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">            </span><span class="s2">&quot;user_role&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">user_role</span><span class="p">,</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">            </span><span class="s2">&quot;allowed_permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">allowed_permissions</span><span class="p">[</span><span class="n">user_role</span><span class="p">]</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="step-dependencies-analysis">Step Dependencies Analysis<a class="headerlink" href="#step-dependencies-analysis" title="Permanent link">&para;</a></h3>
+<p>You can analyze dependencies between steps:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Detect when sensitive data is passed to network operations</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1"># Find an authentication step</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">auth_step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">auth_step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;authenticate&quot;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="c1"># Find a network request step</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">request_step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="n">request_step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;http_request&quot;</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="c1"># Check if auth data is referenced in request</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="k">contains</span><span class="p">(</span><span class="n">request_step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">sprintf</span><span class="p">(</span><span class="s2">&quot;{{%s.result}}&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">auth_step</span><span class="p">.</span><span class="n">id</span><span class="p">]))</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auth_data_in_url&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Authentication data should not be included in URLs&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">request_step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">            </span><span class="s2">&quot;auth_step&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">auth_step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">            </span><span class="s2">&quot;url_parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">request_step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">url</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="using-rego-built-in-functions">Using Rego Built-in Functions<a class="headerlink" href="#using-rego-built-in-functions" title="Permanent link">&para;</a></h2>
+<p>Rego provides many <a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#built-in-functions">built-in functions</a> for processing data:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Check for excessively large array operations</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;process_array&quot;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="c1"># Convert to number if string</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="n">array_size</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">to_number</span><span class="p">(</span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="c1"># Check if exceeds threshold</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="n">max_size</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">10000</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="n">array_size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">max_size</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;large_array_operation&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Processing very large arrays can cause performance issues&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;performance&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">            </span><span class="s2">&quot;array_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">array_size</span><span class="p">,</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">            </span><span class="s2">&quot;max_recommended_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">max_size</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="pattern-matching-and-string-operations">Pattern Matching and String Operations<a class="headerlink" href="#pattern-matching-and-string-operations" title="Permanent link">&para;</a></h2>
+<p>Use pattern matching for detecting issues in string parameters:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># Detect potential XSS vulnerabilities</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;render_html&quot;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="c1"># Look for common XSS patterns</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="n">dangerous_patterns</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">        </span><span class="s2">&quot;&lt;script&gt;&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="s2">&quot;javascript:&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">        </span><span class="s2">&quot;onerror=&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">        </span><span class="s2">&quot;onload=&quot;</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dangerous_patterns</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">    </span><span class="k">contains</span><span class="p">(</span><span class="n">lower</span><span class="p">(</span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">content</span><span class="p">),</span><span class="w"> </span><span class="n">pattern</span><span class="p">)</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;potential_xss&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HTML content contains potentially dangerous scripts&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;critical&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">            </span><span class="s2">&quot;detected_pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">pattern</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="testing-your-policies">Testing Your Policies<a class="headerlink" href="#testing-your-policies" title="Permanent link">&para;</a></h2>
+<p>It's important to test policies with both valid and invalid plans:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">test</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">import</span><span class="w"> </span><span class="k">data</span><span class="p">.</span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Test case for sensitive path access policy</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">test_sensitive_path_access</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="c1"># Define test plan with violation</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="n">plan</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="s2">&quot;steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">                </span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;step1&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">                </span><span class="s2">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file_operation&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">                </span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">                    </span><span class="s2">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;read&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">                    </span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/passwd&quot;</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="c1"># Run the policy</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">    </span><span class="n">violations</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">custom</span><span class="p">.</span><span class="n">deny</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="nb">input</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;plan&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">plan</span><span class="p">}</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">    </span><span class="c1"># Check that a violation was detected</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">    </span><span class="n">count</span><span class="p">(</span><span class="n">violations</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">    </span><span class="n">violations</span><span class="p">[</span><span class="n">_</span><span class="p">].</span><span class="n">rule</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;sensitive_path_access&quot;</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="p">}</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="c1"># Test case for safe path</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="n">test_safe_path</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">    </span><span class="c1"># Define test plan without violation</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="w">    </span><span class="n">plan</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="w">        </span><span class="s2">&quot;steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="w">                </span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;step1&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="w">                </span><span class="s2">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file_operation&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="w">                </span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="w">                    </span><span class="s2">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;read&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a><span class="w">                    </span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/safe_file.txt&quot;</span>
+<a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a>
+<a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a><span class="w">    </span><span class="c1"># Run the policy</span>
+<a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a><span class="w">    </span><span class="n">violations</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">custom</span><span class="p">.</span><span class="n">deny</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="nb">input</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;plan&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">plan</span><span class="p">}</span>
+<a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a>
+<a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="w">    </span><span class="c1"># Check that no violations were detected</span>
+<a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a><span class="w">    </span><span class="n">count</span><span class="p">(</span><span class="n">violations</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a><span class="p">}</span>
+</code></pre></div>
+<p>To run these tests:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>plan-lint<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--policies<span class="w"> </span>your_policy.rego
+</code></pre></div>
+<h2 id="organizing-multiple-policies">Organizing Multiple Policies<a class="headerlink" href="#organizing-multiple-policies" title="Permanent link">&para;</a></h2>
+<p>For larger projects, organize policies into themes:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>policies/
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  ├── security/
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  │   ├── injection.rego
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  │   ├── access_control.rego
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  │   └── data_exposure.rego
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  ├── performance/
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  │   ├── resource_limits.rego
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  │   └── efficiency.rego
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  └── reliability/
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>      ├── error_handling.rego
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>      └── retries.rego
+</code></pre></div>
+<h2 id="common-patterns-for-plan-lint-policies">Common Patterns for Plan-Lint Policies<a class="headerlink" href="#common-patterns-for-plan-lint-policies" title="Permanent link">&para;</a></h2>
+<h3 id="detecting-dangerous-operations">Detecting Dangerous Operations<a class="headerlink" href="#detecting-dangerous-operations" title="Permanent link">&para;</a></h3>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># List of dangerous system commands</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">dangerous_commands</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="s2">&quot;rm -rf&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="s2">&quot;dd if=&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="s2">&quot;mkfs&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="s2">&quot;&gt; /dev/&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="s2">&quot;:(){ :|:&amp; };:&quot;</span><span class="w">  </span><span class="c1"># Fork bomb</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="p">]</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="c1"># Detect dangerous system commands</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">    </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;execute_command&quot;</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">cmd</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dangerous_commands</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">    </span><span class="k">contains</span><span class="p">(</span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">cmd</span><span class="p">)</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dangerous_system_command&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plan contains a potentially destructive system command&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;critical&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a><span class="w">            </span><span class="s2">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">command</span><span class="p">,</span>
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="w">            </span><span class="s2">&quot;detected_pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">cmd</span>
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="enforcing-tool-constraints">Enforcing Tool Constraints<a class="headerlink" href="#enforcing-tool-constraints" title="Permanent link">&para;</a></h3>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Limit the number of API calls in a plan</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="n">api_steps</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="n">step</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;api_call&quot;</span><span class="p">]</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="n">count</span><span class="p">(</span><span class="n">api_steps</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">5</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;too_many_api_calls&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plan contains too many API calls which may lead to rate limiting&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reliability&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">api_steps</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">id</span><span class="p">,</span><span class="w">  </span><span class="c1"># Reference the first API call</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">            </span><span class="s2">&quot;api_call_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">api_steps</span><span class="p">),</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">            </span><span class="s2">&quot;max_recommended&quot;</span><span class="p">:</span><span class="w"> </span><span class="m">5</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="contextual-validation">Contextual Validation<a class="headerlink" href="#contextual-validation" title="Permanent link">&para;</a></h3>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Validate operations based on business hours</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="c1"># Only apply this rule if business_hours context is provided</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="nb">input</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">business_hours</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;schedule_maintenance&quot;</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span><span class="c1"># Convert maintenance time to number for comparison</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="n">maintenance_hour</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">to_number</span><span class="p">(</span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">hour</span><span class="p">)</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">    </span><span class="c1"># Check if maintenance is scheduled during business hours</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span><span class="n">maintenance_hour</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">business_hours</span><span class="p">.</span><span class="n">start</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span><span class="n">maintenance_hour</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">business_hours</span><span class="p">.</span><span class="n">end</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;maintenance_during_business_hours&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Maintenance should be scheduled outside of business hours&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;operational&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="w">            </span><span class="s2">&quot;scheduled_hour&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">maintenance_hour</span><span class="p">,</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="w">            </span><span class="s2">&quot;business_hours&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">sprintf</span><span class="p">(</span><span class="s2">&quot;%d-%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nb">input</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">business_hours</span><span class="p">.</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">business_hours</span><span class="p">.</span><span class="n">end</span><span class="p">])</span>
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Be Specific</strong>: Target policies to specific tools or operations</li>
+<li><strong>Use Severity Levels Consistently</strong>: Follow these guidelines:</li>
+<li><code>critical</code>: Issues that must be fixed immediately</li>
+<li><code>high</code>: Significant security or reliability concerns</li>
+<li><code>medium</code>: Important but not critical issues</li>
+<li><code>low</code>: Minor concerns or best practice suggestions</li>
+<li><strong>Include Helpful Messages</strong>: Make policy violation messages actionable and clear</li>
+<li><strong>Add Metadata</strong>: Include relevant data to help developers understand and fix issues</li>
+<li><strong>Test Thoroughly</strong>: Create test cases for both compliant and non-compliant plans</li>
+<li><strong>Consider Performance</strong>: Complex policies might slow down validation; optimize when necessary</li>
+</ol>
+<h2 id="debugging-policies">Debugging Policies<a class="headerlink" href="#debugging-policies" title="Permanent link">&para;</a></h2>
+<p>When your policy isn't working as expected:</p>
+<ol>
+<li>
+<p>Use the <code>--debug</code> flag when running <code>plan-lint</code>:
+   <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>plan-lint<span class="w"> </span>validate<span class="w"> </span>--plan<span class="w"> </span>my_plan.json<span class="w"> </span>--policies<span class="w"> </span>my_policy.rego<span class="w"> </span>--debug
+</code></pre></div></p>
+</li>
+<li>
+<p>Add print statements for debugging:
+   <div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="c1"># ...</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s2">&quot;Checking step:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="p">)</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s2">&quot;Parameter value:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="c1"># ...</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Break down complex policies into smaller ones to isolate issues</p>
+</li>
+</ol>
+<h2 id="policy-version-control">Policy Version Control<a class="headerlink" href="#policy-version-control" title="Permanent link">&para;</a></h2>
+<p>For maintainable policies:</p>
+<ol>
+<li>
+<p>Add headers with version and author information:
+   <div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Policy: prevent_sensitive_data_exposure</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># Version: 1.2</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># Author: Security Team</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Last Updated: 2023-10-15</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># Description: Prevents exposure of sensitive data in logs and external services</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Add comments explaining the rationale behind policy decisions</p>
+</li>
+<li>
+<p>Consider using meaningful file names that describe the policy's purpose</p>
+</li>
+</ol>
+<h2 id="example-rate-limiting-policy">Example: Rate Limiting Policy<a class="headerlink" href="#example-rate-limiting-policy" title="Permanent link">&para;</a></h2>
+<p>Complete policy example for enforcing API rate limits:</p>
+<div class="language-rego highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">package</span><span class="w"> </span><span class="n">planlint</span><span class="p">.</span><span class="n">custom</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="k">import</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="n">keywords</span><span class="p">.</span><span class="k">in</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># Rate limiting policy for API calls</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="c1"># Checks that the same API endpoint isn&#39;t called too frequently within a plan</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="c1"># Configuration</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="k">default</span><span class="w"> </span><span class="n">max_calls_per_endpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="c1"># Get customized limit from context if available</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="n">max_calls_per_endpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">limit</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">    </span><span class="n">limit</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">api_rate_limits</span><span class="p">.</span><span class="n">max_calls_per_endpoint</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="p">}</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="c1"># Group API calls by endpoint</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="n">api_calls_by_endpoint</span><span class="p">[</span><span class="n">endpoint</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calls</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="w">    </span><span class="c1"># Collect all API call steps</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="w">    </span><span class="n">api_steps</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="n">step</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">input</span><span class="p">.</span><span class="n">plan</span><span class="p">.</span><span class="n">steps</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">tool</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;api_call&quot;</span><span class="p">]</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="w">    </span><span class="c1"># Group by endpoint</span>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="w">    </span><span class="n">endpoints</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span><span class="n">endpoint</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">api_steps</span><span class="p">;</span><span class="w"> </span><span class="n">endpoint</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">endpoint</span><span class="p">}</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a><span class="w">    </span><span class="c1"># For each endpoint, collect all steps that call it</span>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">endpoint</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">endpoints</span>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a><span class="w">    </span><span class="n">calls</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="n">step</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">api_steps</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">parameters</span><span class="p">.</span><span class="n">endpoint</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">endpoint</span><span class="p">]</span>
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a><span class="p">}</span>
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a><span class="c1"># Detect rate limit violations</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a><span class="n">deny</span><span class="p">[</span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a><span class="w">    </span><span class="k">some</span><span class="w"> </span><span class="n">endpoint</span><span class="p">,</span><span class="w"> </span><span class="n">calls</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">api_calls_by_endpoint</span>
+<a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a><span class="w">    </span><span class="n">count</span><span class="p">(</span><span class="n">calls</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">max_calls_per_endpoint</span>
+<a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a>
+<a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a><span class="w">        </span><span class="s2">&quot;rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api_rate_limit_exceeded&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-36" name="__codelineno-16-36" href="#__codelineno-16-36"></a><span class="w">        </span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">sprintf</span><span class="p">(</span><span class="s2">&quot;Too many calls to API endpoint &#39;%s&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">endpoint</span><span class="p">]),</span>
+<a id="__codelineno-16-37" name="__codelineno-16-37" href="#__codelineno-16-37"></a><span class="w">        </span><span class="s2">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medium&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-38" name="__codelineno-16-38" href="#__codelineno-16-38"></a><span class="w">        </span><span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reliability&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-39" name="__codelineno-16-39" href="#__codelineno-16-39"></a><span class="w">        </span><span class="s2">&quot;step_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">calls</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">id</span><span class="p">,</span><span class="w">  </span><span class="c1"># Reference the first call to this endpoint</span>
+<a id="__codelineno-16-40" name="__codelineno-16-40" href="#__codelineno-16-40"></a><span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-41" name="__codelineno-16-41" href="#__codelineno-16-41"></a><span class="w">            </span><span class="s2">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">endpoint</span><span class="p">,</span>
+<a id="__codelineno-16-42" name="__codelineno-16-42" href="#__codelineno-16-42"></a><span class="w">            </span><span class="s2">&quot;call_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">calls</span><span class="p">),</span>
+<a id="__codelineno-16-43" name="__codelineno-16-43" href="#__codelineno-16-43"></a><span class="w">            </span><span class="s2">&quot;max_allowed&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">max_calls_per_endpoint</span><span class="p">,</span>
+<a id="__codelineno-16-44" name="__codelineno-16-44" href="#__codelineno-16-44"></a><span class="w">            </span><span class="s2">&quot;all_calls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">step</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">calls</span><span class="p">]</span>
+<a id="__codelineno-16-45" name="__codelineno-16-45" href="#__codelineno-16-45"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-16-46" name="__codelineno-16-46" href="#__codelineno-16-46"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-16-47" name="__codelineno-16-47" href="#__codelineno-16-47"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Creating effective policies is an iterative process. Start with simple rules and gradually build more complex validation logic as your understanding of potential issues grows. Remember that policies should balance security with usability - overly strict policies might frustrate users and lead to workarounds.</p>
+<p>For more examples and inspiration, check out the default policies included with Plan-Lint and the examples in the Plan-Lint documentation. </p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 29, 2025 06:00:33">April 29, 2025</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 29, 2025 06:00:33">April 29, 2025</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/cirbuk/plan-lint" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://pypi.org/project/plan-lint/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.expand", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
