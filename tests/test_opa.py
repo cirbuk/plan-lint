@@ -9,16 +9,13 @@ import tempfile
 import unittest
 from unittest.mock import MagicMock, patch
 
-import pytest
-from pydantic import ValidationError
-
 from plan_lint.opa import (
     evaluate_with_opa,
     is_rego_policy,
     load_rego_policy_file,
     policy_to_rego,
 )
-from plan_lint.types import ErrorCode, Plan, Policy, Status, ValidationResult, PlanError
+from plan_lint.types import ErrorCode, Plan, PlanError, Policy, Status, ValidationResult
 
 
 # Helper function for testing - replacement for the one in validator.py
@@ -191,7 +188,6 @@ class TestOPAModule(unittest.TestCase):
     def test_evaluate_with_opa_failure(self, mock_run):
         """Test handling of OPA evaluation failures."""
         # Instead of testing the whole function, let's just test the subprocess error handling
-        from plan_lint.opa import OPAError
 
         # Set up the mock to fail with a subprocess error
         mock_run.side_effect = subprocess.SubprocessError("OPA evaluation failed")
