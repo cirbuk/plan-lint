@@ -1,0 +1,89 @@
+name: Version Bump
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'pyproject.toml'  # Avoid recursion when the version bump itself is pushed
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install toml
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          # Get the current version from pyproject.toml
+          CURRENT_VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Split the version into parts
+          IFS='.' read -r -a VERSION_PARTS <<< "$CURRENT_VERSION"
+          MAJOR="${VERSION_PARTS[0]}"
+          MINOR="${VERSION_PARTS[1]}"
+          PATCH="${VERSION_PARTS[2]}"
+          
+          # Increment patch version
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+          echo "New version: $NEW_VERSION"
+          
+          # Update pyproject.toml with the new version
+          python -c "
+          import toml
+          data = toml.load('pyproject.toml')
+          data['project']['version'] = '$NEW_VERSION'
+          with open('pyproject.toml', 'w') as f:
+              toml.dump(data, f)
+          "
+          
+          # Export the new version for later steps
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update files with new version
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          
+          # Update version in __init__.py if it exists
+          if [ -f "src/plan_lint/__init__.py" ]; then
+            sed -i "s/__version__ = \".*\"/__version__ = \"$NEW_VERSION\"/" src/plan_lint/__init__.py
+          fi
+          
+          # Update CHANGELOG.md with new version entry if it exists
+          if [ -f "CHANGELOG.md" ]; then
+            DATE=$(date +%Y-%m-%d)
+            sed -i "1s/^/## $NEW_VERSION ($DATE)\n\n- Auto-version bump from GitHub Actions\n\n/" CHANGELOG.md
+          fi
+
+      - name: Commit and push changes
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pyproject.toml src/plan_lint/__init__.py CHANGELOG.md
+          git commit -m "Bump version to $NEW_VERSION"
+          git push origin main
+
+      - name: Create tag
+        run: |
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          git tag "v$NEW_VERSION"
+          git push origin "v$NEW_VERSION" 
