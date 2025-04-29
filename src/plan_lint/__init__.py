@@ -3,5 +3,5 @@
 from plan_lint.core import validate_plan
 from plan_lint.types import PlanError, ValidationResult
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __all__ = ["validate_plan", "ValidationResult", "PlanError"]

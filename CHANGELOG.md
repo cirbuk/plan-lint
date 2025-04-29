@@ -1,3 +1,7 @@
+## 0.0.4 (2025-04-29)
+
+- Auto-version bump from GitHub Actions
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

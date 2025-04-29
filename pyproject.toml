@@ -1,71 +1,36 @@
 [build-system]
-requires = ["hatchling", "setuptools>=65.5.1"]
+requires = [ "hatchling", "setuptools>=65.5.1",]
 build-backend = "hatchling.build"
 
 [project]
 name = "plan-lint"
-version = "0.0.3"
+version = "0.0.4"
 description = "plan-linter is a static analysis toolkit for LLM agent plans"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "Apache-2.0"}
-authors = [
-    {name = "Plan-Linter Contributors"}
-]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Quality Assurance",
-]
-keywords = ["llm", "ai", "static-analysis", "linter", "security"]
-dependencies = [
-    "pydantic>=2.0.0",
-    "jsonschema>=4.0.0",
-    "pyyaml>=6.0.0",
-    "typer>=0.9.0",
-    "rich>=13.0.0",
-]
+classifiers = [ "Development Status :: 3 - Alpha", "Intended Audience :: Developers", "License :: OSI Approved :: Apache Software License", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3.11", "Programming Language :: Python :: 3.12", "Topic :: Software Development :: Libraries :: Python Modules", "Topic :: Software Development :: Quality Assurance",]
+keywords = [ "llm", "ai", "static-analysis", "linter", "security",]
+dependencies = [ "pydantic>=2.0.0", "jsonschema>=4.0.0", "pyyaml>=6.0.0", "typer>=0.9.0", "rich>=13.0.0",]
+[[project.authors]]
+name = "Plan-Linter Contributors"
+
+[project.license]
+text = "Apache-2.0"
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-    "black>=23.0.0",
-    "isort>=5.0.0",
-    "mypy>=1.0.0",
-    "ruff>=0.1.0",
-    "pre-commit>=3.0.0",
-]
-docs = [
-    "mkdocs-material>=9.0.0",
-    "mkdocstrings>=0.23.0",
-    "mkdocstrings-python>=1.2.0",
-    "mkdocs-git-revision-date-localized-plugin>=1.2.0",
-    "mike>=1.1.0",
-]
+dev = [ "pytest>=7.0.0", "pytest-cov>=4.0.0", "black>=23.0.0", "isort>=5.0.0", "mypy>=1.0.0", "ruff>=0.1.0", "pre-commit>=3.0.0",]
+docs = [ "mkdocs-material>=9.0.0", "mkdocstrings>=0.23.0", "mkdocstrings-python>=1.2.0", "mkdocs-git-revision-date-localized-plugin>=1.2.0", "mike>=1.1.0",]
 
 [project.urls]
-"Homepage" = "https://github.com/cirbuk/plan-lint"
+Homepage = "https://github.com/cirbuk/plan-lint"
 "Bug Tracker" = "https://github.com/cirbuk/plan-lint/issues"
-"Documentation" = "https://cirbuk.github.io/plan-lint/"
+Documentation = "https://cirbuk.github.io/plan-lint/"
 "Source Code" = "https://github.com/cirbuk/plan-lint"
-"Changelog" = "https://github.com/cirbuk/plan-lint/blob/main/CHANGELOG.md"
-"Repository" = "https://github.com/cirbuk/plan-lint.git"
+Changelog = "https://github.com/cirbuk/plan-lint/blob/main/CHANGELOG.md"
+Repository = "https://github.com/cirbuk/plan-lint.git"
 
 [project.scripts]
 plan-lint = "plan_lint.cli:app"
-
-[tool.hatch.build.targets.wheel]
-packages = ["src/plan_lint"]
-exclude = ["src/plan_lint/tests", "tests", "*/tests/*", "src/plan_lint/testing", "*/testing/*"]
-
-[tool.hatch.build.targets.sdist]
-exclude = ["tests", "src/plan_lint/tests", "*/tests/*", "src/plan_lint/testing", "*/testing/*"]
 
 [tool.black]
 line-length = 88
@@ -81,25 +46,8 @@ disallow_untyped_defs = true
 disallow_incomplete_defs = true
 
 [tool.ruff]
-# Common settings
 line-length = 88
 target-version = "py311"
-
-# Enable linting rules
-[tool.ruff.lint]
-select = ["E", "F", "B", "I"]
-ignore = []
-
-# Per-file rules
-[tool.ruff.lint.per-file-ignores]
-# Allow module-level imports after sys.path manipulation in example files
-# Also be more lenient with line length in examples and tests (they're demos)
-"examples/*.py" = ["E402", "E501"]
-"tests/*.py" = ["E501"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = "test_*.py"
 
 [tool.mkdocs]
 site_name = "Plan-Lint Documentation"
@@ -108,7 +56,27 @@ repo_url = "https://github.com/cirbuk/plan-lint"
 theme = "material"
 docs_dir = "docs"
 
-[tool.mkdocs.plugins]
-search = {}
-mkdocstrings = {}
-git-revision-date-localized = {}
+[tool.ruff.lint]
+select = [ "E", "F", "B", "I",]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = [ "tests",]
+python_files = "test_*.py"
+
+[tool.ruff.lint.per-file-ignores]
+"examples/*.py" = [ "E402", "E501",]
+"tests/*.py" = [ "E501",]
+
+[tool.mkdocs.plugins.search]
+
+[tool.mkdocs.plugins.mkdocstrings]
+
+[tool.mkdocs.plugins.git-revision-date-localized]
+
+[tool.hatch.build.targets.wheel]
+packages = [ "src/plan_lint",]
+exclude = [ "src/plan_lint/tests", "tests", "*/tests/*", "src/plan_lint/testing", "*/testing/*",]
+
+[tool.hatch.build.targets.sdist]
+exclude = [ "tests", "src/plan_lint/tests", "*/tests/*", "src/plan_lint/testing", "*/testing/*",]
