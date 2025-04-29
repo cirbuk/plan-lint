@@ -1,5 +1,9 @@
 # 🛡️ plan-linter
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/cirbuk/plan-lint/main/assets/logo.svg" width="200" alt="Plan-Lint Logo">
+</p>
+
 *"Fail your agent's flight-plan in CI—before it fails production."*
 
 `plan-linter` is an **open-source static analysis toolkit** for LLM agent **plans**.
@@ -95,6 +99,8 @@ risk_weights:
 fail_risk_threshold: 0.8
 ```
 
+For detailed information on creating policies, including advanced YAML policies and Rego policies with Open Policy Agent integration, see our [Policy Authoring Guide](docs/policy-authoring.md).
+
 ## 🔍 Command Line Options
 
 ```
@@ -171,6 +177,40 @@ pip install -e ".[dev]"
 # Install pre-commit hooks
 pre-commit install
 ```
+
+## 📚 Documentation
+
+For comprehensive documentation, visit our [documentation site](https://cirbuk.github.io/plan-lint/) or build it locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/cirbuk/plan-lint.git
+cd plan-lint
+
+# Create and activate a virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install the package with documentation dependencies
+pip install -e ".[docs]"
+
+# Build and serve the documentation locally
+mkdocs serve
+```
+
+The documentation includes:
+- Detailed guides on policy authoring
+- Examples of integrating with MCP servers
+- API reference
+- Advanced usage scenarios
+
+You can also build a static version of the documentation:
+
+```bash
+mkdocs build
+```
+
+This will create a `site` directory with the static HTML documentation.
 
 ## 📄 License
 

@@ -14,9 +14,9 @@ jobs:
         python-version: ['3.11', '3.12']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     
@@ -43,17 +43,17 @@ jobs:
         pytest tests/ --cov=src/plan_lint --cov-report=xml
     
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
-        file: ./coverage.xml
+        files: ./coverage.xml
         fail_ci_if_error: false
 
   lint-test-plans:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     
@@ -77,4 +77,4 @@ jobs:
         python -m plan_lint src/plan_lint/examples/price_drop.json --policy src/plan_lint/examples/policy.yaml --format json > linter_output.json || echo "Linter found issues as expected"
         
         # Check that the output contains the expected errors
-        cat linter_output.json | grep -q "TOOL_DENY" && cat linter_output.json | grep -q "RAW_SECRET" && echo "✅ Linter correctly identified policy violations"
+        grep -q "TOOL_DENY" linter_output.json && grep -q "RAW_SECRET" linter_output.json && echo "✅ Linter correctly identified policy violations"

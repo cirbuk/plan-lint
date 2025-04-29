@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" rx="16" fill="#4051B5" />
+  <path d="M30 40 L90 40 L90 80 L30 80 Z" stroke="white" stroke-width="4" fill="none" />
+  <path d="M30 40 L60 60 L90 40" stroke="white" stroke-width="4" fill="none" />
+  <path d="M45 55 L55 55" stroke="white" stroke-width="3" />
+  <path d="M45 63 L75 63" stroke="white" stroke-width="3" />
+  <path d="M45 71 L65 71" stroke="white" stroke-width="3" />
+  <path d="M95 35 L95 85 L25 85 L25 35" stroke="white" stroke-width="2" fill="none" />
+  <path d="M103 45 L103 90 L20 90" stroke="white" stroke-width="1.5" fill="none" opacity="0.6" />
+  <circle cx="90" cy="30" r="8" fill="#FF5252" stroke="white" stroke-width="2" />
+  <path d="M86 30 L94 30 M90 26 L90 34" stroke="white" stroke-width="2" />
+</svg> 
