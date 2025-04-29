@@ -1,14 +1,31 @@
 # 🛡️ plan-linter
 
-*"Fail your agent's flight-plan in CI—before it fails production."*
+*"Secure your AI agents. Lint your LLM-generated plans before they break things."*
 
-`plan-linter` is an **open-source static analysis toolkit** for LLM agent **plans**.
+## 🚨 Why Plan Linting Matters
+
+Modern AI agents dynamically generate plans at runtime — deciding what actions to take, what tools to call, what goals to pursue.
+But LLMs hallucinate. Plans are often invalid, broken, unsafe, or even harmful
+
+- Unsafe: Plans might trigger dangerous tool use (e.g., "delete all data")
+- Invalid: Plans can miss mandatory parameters or violate tool schemas
+- Incoherent: Plans can contradict agent goals or deadlock execution
+- Unexecutable: Plans can reference missing tools or invalid operations
+
+plan-lint is a lightweight open source linter designed to validate, catch, and flag these dangerous plans before your agents act on them.
+
+Protect your users. Safeguard your agents. Build responsibly.
+
+
+`plan-lint` is an **open-source static analysis toolkit** for LLM agent **plans**.
 
 It parses the machine-readable plan emitted by a planner/brain, validates it against
 schemas, policy rules, and heuristics, and returns Pass / Fail with an
 annotated risk-score JSON.
 
 [![CI](https://github.com/cirbuk/plan-lint/actions/workflows/ci.yml/badge.svg)](https://github.com/cirbuk/plan-lint/actions/workflows/ci.yml)
+[![Publish to PyPI](https://github.com/cirbuk/plan-lint/actions/workflows/pypi-publish.yml/badge.svg)](https://github.com/cirbuk/plan-lint/actions/workflows/pypi-publish.yml)
+[![Documentation](https://github.com/cirbuk/plan-lint/actions/workflows/docs.yml/badge.svg)](https://github.com/cirbuk/plan-lint/actions/workflows/docs.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![PyPI version](https://img.shields.io/pypi/v/plan-lint.svg)](https://pypi.org/project/plan-lint/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/plan-lint.svg)](https://pypi.org/project/plan-lint/)
@@ -33,6 +50,15 @@ The simplest way to use plan-linter is to run it on a plan JSON file:
 
 ```bash
 plan-lint path/to/plan.json
+```
+
+or use in your application
+```python
+from plan_lint import lint_plan
+
+errors = lint_plan(plan_object)
+if errors:
+    print(errors)
 ```
 
 For a more advanced usage, you can provide a policy file:
@@ -143,6 +169,21 @@ def check_plan(plan: Plan, policy: Policy) -> List[PlanError]:
     return errors
 ```
 
+## 🛡️ Built for:
+	•	LLM-based Agents (LangGraph, Autogen, CrewAI)
+	•	Reasoning Engines (Tree of Thought, CoT, ReAct, DEPS)
+	•	Custom AI Workflows (internal agent systems)
+	•	Enterprise LLM Deployments (risk & compliance sensitive)
+
+## 🧩 Extending plan-lint
+
+Want to create your own checks?
+	•	Fork the repo
+	•	Add new rule modules inside /rules
+	•	Register the rule in rule_registry.py
+
+Check out the [Developer Guide](https://cirbuk.github.io/plan-lint/) .
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! To get started:
@@ -174,33 +215,19 @@ pip install -e ".[dev]"
 pre-commit install
 ```
 
-## 📚 Documentation
+## 🌟 If you like this project…
 
-For comprehensive documentation, visit our [documentation site](https://cirbuk.github.io/plan-lint/) or build it locally:
+Please star this repo!
+It helps others discover the project and contributes to safer AI systems globally.
+Together, we can build trustworthy agentic infrastructures. 💬
 
-```bash
-# Clone the repository
-git clone https://github.com/cirbuk/plan-lint.git
-cd plan-lint
+## 🛠️ Roadmap
+	•	Auto-Fix simple errors
+	•	VS Code extension for live linting
+	•	GitHub Action for Plan Safety in CI/CD
+	•	Plan Complexity Scorer
+	•	Enterprise Mode (fine-grained custom policy linting)
 
-# Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install the package with documentation dependencies
-pip install -e ".[docs]"
-
-# Build and serve the documentation locally
-mkdocs serve
-```
-
-### Documentation Versions
-
-Our documentation is versioned and hosted on GitHub Pages. The latest version is always available at [https://cirbuk.github.io/plan-lint/](https://cirbuk.github.io/plan-lint/).
-
-Each release creates a new documentation version that can be accessed from the version selector in the documentation site.
-
-Documentation is automatically built and deployed whenever changes are made to the documentation files, the `mkdocs.yml` configuration, or when a new release is created.
 
 ## 📄 License
 
