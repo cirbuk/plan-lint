@@ -1,9 +1,5 @@
 # 🛡️ plan-linter
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/cirbuk/plan-lint/main/assets/logo.svg" width="200" alt="Plan-Lint Logo">
-</p>
-
 *"Fail your agent's flight-plan in CI—before it fails production."*
 
 `plan-linter` is an **open-source static analysis toolkit** for LLM agent **plans**.
@@ -14,7 +10,7 @@ annotated risk-score JSON.
 
 [![CI](https://github.com/cirbuk/plan-lint/actions/workflows/ci.yml/badge.svg)](https://github.com/cirbuk/plan-lint/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![PyPI version](https://badge.fury.io/py/plan-lint.svg)](https://badge.fury.io/py/plan-lint)
+[![PyPI version](https://img.shields.io/pypi/v/plan-lint.svg)](https://pypi.org/project/plan-lint/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/plan-lint.svg)](https://pypi.org/project/plan-lint/)
 
 ## 📦 Installation
