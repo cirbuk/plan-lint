@@ -81,3 +81,6 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 .cursor
+
+# MkDocs documentation
+site/
