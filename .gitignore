@@ -84,3 +84,25 @@ Thumbs.db
 
 # MkDocs documentation
 site/
+
+# Claude Code agent artifacts (should not be committed)
+.claude/
+.claude
+*.claude
+
+# Agent runtime logs (should not be committed)
+claude_output.log
+redis_mcp_server.log  
+redis_listener.log
+github_mcp_server.log
+notion_mcp_server.log
+
+# Temporary agent files
+gh_error.log
+*.agent.log
+agent_*.log
+
+# MCP server logs
+*_mcp_server.log
+*_mcp_*.log
+
