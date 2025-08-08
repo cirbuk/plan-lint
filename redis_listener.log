@@ -1,0 +1,5 @@
+INFO:__main__:🚀 Starting Redis Message Listener
+INFO:__main__:✅ Connected to Redis at redis://host.docker.internal:6379
+INFO:__main__:📡 Subscribed to topics: agent_status_updates
+INFO:__main__:🎧 Message listener ready for agent 2878c295-52c7-4aee-954e-d9a23e4f09e5
+INFO:__main__:🎧 Starting message listener for agent 2878c295-52c7-4aee-954e-d9a23e4f09e5
