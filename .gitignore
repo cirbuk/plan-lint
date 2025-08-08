@@ -84,3 +84,6 @@ Thumbs.db
 
 # MkDocs documentation
 site/
+
+# Claude Code symlink (should not be committed)
+.claude
