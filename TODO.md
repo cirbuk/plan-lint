@@ -2,6 +2,73 @@
 
 This document outlines planned enhancements and improvements for the plan-lint project.
 
+## 🎯 High-Priority AI Agent Tasks
+
+### Code Quality & Technical Debt
+- [ ] **Add Type Hints & Improve Type Safety**
+  - [ ] Add missing type hints in `loader.py` module
+  - [ ] Add return type hints for all public functions
+  - [ ] Implement stricter type checking with mypy
+  - [ ] Add validation for optional types
+
+- [ ] **Enhance Error Handling**
+  - [ ] Implement custom exception classes for different error types
+  - [ ] Add better error messages with context and suggestions
+  - [ ] Improve error recovery in validation pipeline
+  - [ ] Add retry logic for transient failures
+
+- [ ] **Improve Test Coverage**
+  - [ ] Increase test coverage to >90% (currently appears limited)
+  - [ ] Add integration tests for CLI commands
+  - [ ] Add property-based testing with hypothesis
+  - [ ] Test edge cases in bounds checking and cycle detection
+  - [ ] Add tests for OPA integration error scenarios
+
+### Core Functionality Improvements
+- [ ] **Enhance Cycle Detection Algorithm**
+  - [ ] Replace naive cycle detection in `core.py:161-181` with proper graph traversal
+  - [ ] Implement topological sorting for dependency validation
+  - [ ] Add support for detecting indirect cycles
+  - [ ] Optimize performance for large plans
+
+- [ ] **Improve Rule Loading System**
+  - [ ] Add rule priority and ordering mechanism
+  - [ ] Implement rule dependencies and prerequisites
+  - [ ] Add rule metadata and documentation extraction
+  - [ ] Create rule validation before loading
+
+- [ ] **Enhance Validation Pipeline**
+  - [ ] Add parallel validation for independent checks
+  - [ ] Implement validation caching for repeated patterns
+  - [ ] Add incremental validation for plan updates
+  - [ ] Create validation profiling and metrics
+
+### Documentation & Developer Experience
+- [ ] **API Documentation**
+  - [ ] Add comprehensive docstrings to all modules
+  - [ ] Generate API documentation with Sphinx/mkdocs
+  - [ ] Add code examples for each public function
+  - [ ] Create developer guide for extending the tool
+
+- [ ] **CLI Improvements**
+  - [ ] Add progress indicators for long-running validations
+  - [ ] Implement verbose and quiet modes
+  - [ ] Add interactive mode for policy creation
+  - [ ] Create shell completion scripts
+
+### Performance Optimizations
+- [ ] **Optimize Regular Expression Matching**
+  - [ ] Compile regex patterns once and reuse
+  - [ ] Use more efficient pattern matching algorithms
+  - [ ] Add regex pattern validation and optimization
+  - [ ] Implement pattern caching
+
+- [ ] **Memory Optimization**
+  - [ ] Stream large plan files instead of loading entirely
+  - [ ] Implement lazy evaluation for validation rules
+  - [ ] Add memory profiling and optimization
+  - [ ] Use generators where appropriate
+
 ## Policy Framework Enhancements
 
 - [ ] **Policy Engine Improvements**
